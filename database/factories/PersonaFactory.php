@@ -31,7 +31,6 @@ class PersonaFactory extends Factory
             'fecha_nacimiento' => now(),
             'esta_activo' => true,
             'genero_sigla' => 'ma',
-            'rol_id' => 1,
         ];
     }
 }

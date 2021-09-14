@@ -4,11 +4,15 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\Paciente;
+use App\Models\{Prestacion,Paciente};
 
-class Diagnostico extends Model
+class Tratamiento extends Model
 {
     use HasFactory;
+
+    public function prestaciones(){
+        $this->hasMany(Prestacion::class);
+    }
 
     public function paciente(){
         $this->belongsTo(Paciente::class);

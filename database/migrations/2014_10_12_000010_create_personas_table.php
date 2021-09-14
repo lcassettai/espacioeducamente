@@ -26,10 +26,8 @@ class CreatePersonasTable extends Migration
             $table->date('fecha_nacimiento');
             $table->boolean('esta_activo');
             $table->char('genero_sigla',2);
-            $table->unsignedBigInteger('rol_id');
 
             $table->foreign('genero_sigla')->references('sigla')->on('generos');
-            $table->foreign('rol_id')->references('id')->on('roles');
         });
     }
 

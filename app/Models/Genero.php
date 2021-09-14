@@ -11,7 +11,7 @@ class Genero extends Model
 {
     use HasFactory;
 
-    public function persona(){
+    public function personas(){
         //return Persona::where('genero_sigla', $this->sigla)->first();
 
         return $this->hasMany(Persona::class,'genero_sigla','sigla');

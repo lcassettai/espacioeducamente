@@ -4,13 +4,13 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\Paciente;
+use App\Models\Prestacion;
 
-class Diagnostico extends Model
+class Informe extends Model
 {
     use HasFactory;
 
-    public function paciente(){
-        $this->belongsTo(Paciente::class);
+    public function prestacion(){
+        $this->belongsTo(Prestacion::class);
     }
 }

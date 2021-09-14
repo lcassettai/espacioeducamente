@@ -6,12 +6,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Persona;
 
-class Rol extends Model
+class Telefono extends Model
 {
     use HasFactory;
 
-    public function persona()
-    {
-        return $this->hasMany(Persona::class);
+    public function persona(){
+        $this->belongsTo(Persona::class);
     }
 }
