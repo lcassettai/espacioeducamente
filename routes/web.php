@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ObraSocialController;
 use App\Http\Controllers\PacienteController;
 use App\Http\Controllers\WelcomeController;
 use Illuminate\Support\Facades\Route;
@@ -18,3 +19,4 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [WelcomeController::class,'index']);
 
 Route::resource('pacientes', PacienteController::class);
+Route::resource('obras_sociales', ObraSocialController::class);

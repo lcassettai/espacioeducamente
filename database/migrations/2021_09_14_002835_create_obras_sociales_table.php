@@ -17,9 +17,9 @@ class CreateObrasSocialesTable extends Migration
             $table->id();
             $table->timestamps();
 
-            $table->string('nombre');
+            $table->string('nombre',255);
             $table->string('sigla',20);
-            $table->string('cuit', 20);
+            $table->string('cuit', 20)->nullable();
         });
     }
 

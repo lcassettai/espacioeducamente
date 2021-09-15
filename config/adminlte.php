@@ -348,6 +348,11 @@ return [
             'url'        => '#',
             'icon'        => 'fas fa-user-tie',
         ],
+        [
+            'text'       => 'Obras sociales',
+            'url'        => 'obras_sociales',
+            'icon'        => 'fas fa-briefcase',
+        ],
     ],
 
     /*
