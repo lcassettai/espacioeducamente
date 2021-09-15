@@ -11,10 +11,10 @@ class Tratamiento extends Model
     use HasFactory;
 
     public function prestaciones(){
-        $this->hasMany(Prestacion::class);
+        return $this->hasMany(Prestacion::class);
     }
 
     public function paciente(){
-        $this->belongsTo(Paciente::class);
+        return $this->belongsTo(Paciente::class);
     }
 }

@@ -13,15 +13,15 @@ class Prestacion extends Model
     protected $table = "prestaciones";
     
     public function informes(){
-        $this->hasMany(Informe::class);
+        return $this->hasMany(Informe::class);
     }
 
     public function tratamiento(){
-        $this->belongsTo(Tratamiento::class);
+        return $this->belongsTo(Tratamiento::class);
     }
 
     public function prestador(){
-        $this->belongsTo(Prestador::class);
+        return $this->belongsTo(Prestador::class);
     }
 
 }

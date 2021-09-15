@@ -11,6 +11,6 @@ class Telefono extends Model
     use HasFactory;
 
     public function persona(){
-        $this->belongsTo(Persona::class);
+        return $this->belongsTo(Persona::class);
     }
 }

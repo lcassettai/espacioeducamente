@@ -36,6 +36,6 @@ class Persona extends Model
     }
 
     public function telefonos(){
-        $this->hasMany('telefonos');
+        return $this->hasMany('telefonos');
     }
 }

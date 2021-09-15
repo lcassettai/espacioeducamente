@@ -11,6 +11,6 @@ class Diagnostico extends Model
     use HasFactory;
 
     public function paciente(){
-        $this->belongsTo(Paciente::class);
+        return $this->belongsTo(Paciente::class);
     }
 }

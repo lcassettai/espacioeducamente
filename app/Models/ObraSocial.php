@@ -13,6 +13,10 @@ class ObraSocial extends Model
     protected $table = "obras_sociales";
 
     public function pacientes(){
-        return $this->belongsToMany(Paciente::class, 'obrasocial_paciente','paciente_id', 'obrasocial_id');
+        return $this->belongsToMany(
+            Paciente::class, 
+            'obrasocial_paciente',
+            'paciente_id', 
+            'obrasocial_id')->withPivot('nro_afiliado');
     }
 }

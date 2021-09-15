@@ -11,6 +11,6 @@ class Informe extends Model
     use HasFactory;
 
     public function prestacion(){
-        $this->belongsTo(Prestacion::class);
+        return $this->belongsTo(Prestacion::class);
     }
 }
