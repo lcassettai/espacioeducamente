@@ -20,7 +20,7 @@ class ObraSocialController extends Controller
         $request->validate([
             'nombre' => 'required|max:255',
             'sigla' => 'required|max:20',
-            'cuit' => 'numeric',
+            'cuit' => 'numeric|nullable',
         ]);
 
         $obraSocial = new ObraSocial();

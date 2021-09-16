@@ -3,17 +3,16 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Persona;
+use App\Models\{Persona,Paciente};
 
 class WelcomeController extends Controller
 {
     public function index()
     {
-        $total_personas = Persona::count();
+        $total_pacientes = Paciente::count();
         $totales = [
             'totales' => [
-                'personas' => $total_personas,
-                'pacientes' => 3,
+                'pacientes' => $total_pacientes,                
             ]
         ];
     
