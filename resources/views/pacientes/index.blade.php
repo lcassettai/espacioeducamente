@@ -11,48 +11,38 @@
     </a>
 @stop
 
-@section('content')
-    <div class="row">
-        <div class="col-12">
 
+@section('content')
+        <div class="col-md-12">
             <div class="card card-info">
                 <div class="card-header">
                     <h3 class="card-title">Listado de pacientes</h3>
-                    <div class="card-tools">
-                        <div class="input-group input-group-sm" style="width: 150px;">
-                            <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
-
-                            <div class="input-group-append">
-                                <button type="submit" class="btn btn-default">
-                                    <i class="fas fa-search"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body table-responsive p-0">
-                    <table class="table table-hover text-nowrap">
+                    <table class="table table-hover text-nowrap text-center">
                         <thead>
                             <tr>
-                                <th>ID</th>
+                                <th>#</th>
                                 <th>Nombre</th>
                                 <th>Apellido</th>
                                 <th>Documento</th>
                                 <th>Fecha Nacimiento</th>
+                                <th>Cuenta con CUD</th>
                                 <th>Opciones</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($personas as $p)
+                            @foreach ($pacientes as $p)
                                 <tr>
                                     <td>{{ $p->id }}</td>
                                     <td>{{ $p->nombre }}</td>
                                     <td>{{ $p->apellido }}</td>
                                     <td>{{ $p->documento }}</td>
                                     <td>{{ $p->fecha_nacimiento }}</td>
+                                    <td>{{ ($p->tiene_cud) ? "SI":"NO" }}</td>
                                     <td>
-                                        <a class="btn btn-info" href="{{route('pacientes.edit',$p)}}"><i class="fas fa-eye"></i></a>
+                                        <a class="btn btn-info" href="{{route('pacientes.edit',$p->id)}}"><i class="fas fa-eye"></i></a>
                                     </td>
                                 </tr>
                             @endforeach
@@ -65,3 +55,28 @@
         </div>
     </div>
 @stop
+
+
+@if(session('create') == 'ok')  
+    @section('js')
+        <script>
+        Swal.fire(
+            'Buen trabajo!',
+            'El paciente se cargo con exito!',
+            'success'
+        )
+        </script>
+    @endsection
+@endif
+
+@if(session('edit') == 'ok')  
+    @section('js')
+        <script>
+        Swal.fire(
+            'Buen trabajo!',
+            'El paciente se edito con exito!',
+            'success'
+        )
+        </script>
+    @endsection
+@endif

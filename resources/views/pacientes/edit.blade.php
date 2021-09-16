@@ -3,7 +3,7 @@
 @section('title', 'Editar paciente')
 
 @section('content_header')
-    <h1>Editar datos personales de <b>{{$persona->apellido}} {{$persona->nombre}}</b></h1>
+    <h1>Editar datos personales de <b>{{$paciente->persona->apellido}} {{$paciente->persona->nombre}}</b></h1>
 @stop
 
 @section('content')
@@ -16,7 +16,7 @@
                 </div>
                 <!-- /.card-header -->
                 <!-- form start -->
-                <form method="post" action="{{ route('pacientes.update',$persona) }}">
+                <form method="post" action="{{ route('pacientes.update',$paciente) }}">
                     @csrf
                     @method('put')
 
@@ -24,7 +24,7 @@
                         <!-- Nombre -->
                         <div class="form-group">
                             <label for="nombre">Nombre</label>
-                            <input type="text" class="form-control" id="nombre" name="nombre" value={{old('nombre',$persona->nombre)}}>
+                            <input type="text" class="form-control" id="nombre" name="nombre" value={{old('nombre',$paciente->persona->nombre)}}>
                             @error('nombre')
                                 <small class="text-danger">{{$message}}</small>
                             @enderror
@@ -33,7 +33,7 @@
                         <!-- Apellido -->
                         <div class="form-group">
                             <label for="apellido">Apellido</label>
-                            <input type="text" class="form-control" id="apellido" name="apellido" value={{old('apellido',$persona->apellido)}}>
+                            <input type="text" class="form-control" id="apellido" name="apellido" value={{old('apellido',$paciente->persona->apellido)}}>
                             @error('apellido')
                                 <small class="text-danger">{{$message}}</small>
                             @enderror
@@ -46,7 +46,7 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
                                 </div>
-                                <input type="date" class="form-control" id="fecha_nacimiento" name="fecha_nacimiento" value={{old('fecha_nacimiento',$persona->fecha_nacimiento)}}>                               
+                                <input type="date" class="form-control" id="fecha_nacimiento" name="fecha_nacimiento" value={{old('fecha_nacimiento',$paciente->persona->fecha_nacimiento)}}>                               
                             </div>
                             @error('fecha_nacimiento')
                                 <small class="text-danger">{{$message}}</small>
@@ -60,7 +60,7 @@
                                  <option value=""> -- Seleccione -- </option>
                                 @foreach ($generos as $g )
                                     <option value="{{$g->sigla}}"
-                                        @if ($g->sigla == old('genero_sigla', $persona->genero_sigla))
+                                        @if ($g->sigla == old('genero_sigla', $paciente->persona->genero_sigla))
                                             selected="selected"
                                         @endif>
                                         {{$g->genero}}
@@ -75,7 +75,7 @@
                         <!-- Documento -->
                         <div class="form-group">
                             <label for="documento">Numero de documento</label>
-                            <input type="text" class="form-control" id="documento" name="documento" value="{{old('documento',$persona->documento)}}">
+                            <input type="text" class="form-control" id="documento" name="documento" value="{{old('documento',$paciente->persona->documento)}}">
                             @error('documento')
                                 <small class="text-danger">{{$message}}</small>
                             @enderror
@@ -84,7 +84,7 @@
                         <!-- Cuit -->
                         <div class="form-group">
                             <label for="cuit">Cuit</label>
-                            <input type="text" class="form-control" id="cuit" name="cuit" value="{{old('cuit',$persona->cuit)}}">
+                            <input type="text" class="form-control" id="cuit" name="cuit" value="{{old('cuit',$paciente->persona->cuit)}}">
                             @error('cuit')
                                 <small class="text-danger">{{$message}}</small>
                             @enderror
@@ -97,7 +97,7 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="fas fa-envelope"></i></span>
                                 </div>
-                                <input type="email" class="form-control" id="email" name="email" value="{{old('email',$persona->email)}}">
+                                <input type="email" class="form-control" id="email" name="email" value="{{old('email',$paciente->persona->email)}}">
                             </div>
                             @error('email')
                                 <small class="text-danger">{{$message}}</small>
@@ -111,23 +111,29 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="fas fa-mobile-alt"></i></span>
                                 </div>
-                                <input type="text" class="form-control" id="telefono" name="telefono" value="{{old('telefono',$persona->telefono)}}">
+                                <input type="text" class="form-control" id="telefono" name="telefono" value="{{old('telefono',$paciente->persona->telefono)}}">
                             </div>
                             @error('telefono')
                                 <small class="text-danger">{{$message}}</small>
                             @enderror
                         </div> 
 
-                        <!-- Estado -->
-                        <div class="form-group">
-                            <div class="custom-control custom-switch custom-switch-off-danger custom-switch-on-success">
-                                <input type="checkbox" class="custom-control-input"  
-                                    @if($persona->estado)
-                                        checked
-                                    @endif
-                                id="estado" name="estado"  />
-                                <label class="custom-control-label" for="estado">Estado</label>
-                            </div>
+                        <!-- CUD -->
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" id="tiene_cud"  name="tiene_cud"
+                            @if(old('tiene_cud',$paciente->tiene_cud))
+                                checked
+                            @endif>
+                            <label class="form-check-label" for="tiene_cud">El paciente cuenta con cud</label>
+                        </div>
+
+                        <!--Estado -->
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" id="esta_activo"  name="esta_activo"
+                            @if(old('esta_activo',$paciente->persona->esta_activo))
+                                checked
+                            @endif>
+                            <label class="form-check-label" for="esta_activo">El paciente esta activo</label>
                         </div>
                     </div>
                     <!-- /.card-body -->

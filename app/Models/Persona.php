@@ -5,15 +5,15 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Genero;
-use App\Models\Rol;
-use App\Models\Diagnostico;
+use App\Models\Paciente;
+use App\Models\Telefono;
 
 class Persona extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'estado',
+        'esta_activo',
         'nombre', 
         'apellido',
         'cuit',
@@ -36,6 +36,10 @@ class Persona extends Model
     }
 
     public function telefonos(){
-        return $this->hasMany('telefonos');
+        return $this->hasMany(Telefono::class);
+    }
+
+    public function pacientes(){
+        return $this->hasMany(Paciente::class);
     }
 }

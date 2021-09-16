@@ -4,47 +4,58 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use App\Models\Persona;
-use App\Models\Genero;
-use App\Http\Requests\StorePersona;
+use App\Models\{Persona,Paciente,Genero};
+use App\Http\Requests\StorePaciente;
 
 class PacienteController extends Controller
 {
     public function index(){
-        $personas = Persona::all();
-        
-        return view('pacientes.index',compact('personas'));
+        $pacientes = Paciente::join('personas', 'pacientes.persona_id','personas.id')
+        ->where('esta_activo',true)
+        ->orderBy('apellido','desc')
+        ->select('personas.*','pacientes.*')
+        ->get();
+       
+        return view('pacientes.index',compact('pacientes'));
     }
 
-    public function edit(Persona $persona){
+    public function create(){
+       $generos = Genero::all();
+
+       return view('pacientes.create')->with(compact('generos'));
+    }
+
+    public function edit(Paciente $paciente){
         $generos = Genero::all();
 
-        return view('pacientes.edit')->with(compact('persona'))->with(compact('generos'));
+        return view('pacientes.edit')->with(compact('paciente'))->with(compact('generos'));
     }
 
-    public function create()
-    {   
-        $generos = Genero::all();
-
-        return view('pacientes.create')->with(compact('generos'));
-    }
-
-    public function store(StorePersona $request){
+    public function store(StorePaciente $request){
         $datos = $request->all();
-        $datos['estado'] = $request->has('estado');
+        
+        $datos['esta_activo'] = $request->has('esta_activo');
+        $datos['tiene_cud'] = $request->has('tiene_cud');
+        $datos['prestador_id'] = 1; //harcoded TODO prestador logueado
 
-        $persona = Persona::create($datos);
-
-        return redirect()->route('pacientes.index', $persona->id);
+        //$persona = Persona::create($datos);
+        Persona::create($datos)->pacientes()->create($datos);
+        
+        return redirect()->route('pacientes.index')->with('create','ok');
     }
 
-    public function update(Request $request, Persona $persona)
+    public function update(Request $request, Paciente $paciente)
     {
         $datos = $request->all();
-        $datos['estado'] = $request->has('estado');
 
-        $persona->update($datos);
+        $datos['esta_activo'] = $request->has('esta_activo');
 
-        return redirect()->route('pacientes.index');
+        $paciente->update([
+            'tiene_cud' => $request->has('tiene_cud')
+        ]);
+
+        $paciente->persona->update($datos);
+
+        return redirect()->route('pacientes.index')->with('edit', 'ok');
     }
 }
