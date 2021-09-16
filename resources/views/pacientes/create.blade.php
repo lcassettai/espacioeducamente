@@ -59,7 +59,11 @@
                             <select class="form-control" id="genero_sigla" name="genero_sigla">
                                 <option value=""> -- Seleccione -- </option>
                                 @foreach ($generos as $g)
-                                    <option value="{{ $g->sigla }}">{{ $g->genero }}</option>
+                                    <option 
+                                    @if ($g->sigla == old('genero_sigla'))
+                                            selected="selected"
+                                    @endif
+                                    value="{{ $g->sigla }}">{{ $g->genero }}</option>
                                 @endforeach
                             </select>
                             @error('genero_sigla')
@@ -115,13 +119,23 @@
                                 <small class="text-danger">{{ $message }}</small>
                             @enderror
                         </div>
+                        <h1>{{old('tiene_cud')}}</h1>
+                        <!-- CUD -->
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" id="tiene_cud"  name="tiene_cud"
+                            @if(old('tiene_cud'))
+                                checked
+                            @endif>
+                            <label class="form-check-label" for="tiene_cud">El paciente cuenta con cud</label>
+                        </div>
 
-                        <!-- Estado -->
-                        <div class="form-group">
-                            <div class="custom-control custom-switch custom-switch-off-danger custom-switch-on-success">
-                                <input type="checkbox" class="custom-control-input"  checked id="estado" name="estado"  />
-                                <label class="custom-control-label" for="estado">Estado</label>
-                            </div>
+                        <!--Estado -->
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" id="esta_activo"  name="esta_activo"
+                            @if(old('esta_activo'))
+                                checked
+                            @endif>
+                            <label class="form-check-label" for="esta_activo">El paciente esta activo</label>
                         </div>
                     </div>
 
