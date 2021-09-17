@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\GeneroController;
 use App\Http\Controllers\ObraSocialController;
 use App\Http\Controllers\PacienteController;
 use App\Http\Controllers\WelcomeController;
@@ -20,3 +21,5 @@ Route::get('/', [WelcomeController::class,'index']);
 
 Route::resource('pacientes', PacienteController::class);
 Route::resource('obras_sociales', ObraSocialController::class);
+Route::resource('generos', GeneroController::class);
+

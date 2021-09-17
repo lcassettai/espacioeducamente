@@ -10,6 +10,9 @@ use App\Models\Telefono;
 class Genero extends Model
 {
     use HasFactory;
+    
+    protected $primaryKey = "sigla";
+    public $incrementing = false;
 
     public function personas(){
         //return Persona::where('genero_sigla', $this->sigla)->first();

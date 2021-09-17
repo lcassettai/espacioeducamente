@@ -353,6 +353,11 @@ return [
             'url'        => 'obras_sociales',
             'icon'        => 'fas fa-briefcase',
         ],
+        [
+            'text'       => 'Generos',
+            'url'        => 'generos',
+            'icon'        => 'fas fa-transgender-alt',
+        ],
     ],
 
     /*
