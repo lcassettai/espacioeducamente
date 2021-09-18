@@ -10,6 +10,10 @@ class Prestador extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'persona_id',
+    ];
+
     protected $table = "prestadores";
 
     public function persona(){

@@ -334,19 +334,31 @@ return [
                 [
                     'text' => 'Listado',
                     'url'  => 'pacientes',
-                    'icon' => 'fas fa-users'
+                    'icon' => 'fas fa-th-list'
                 ],
                 [
-                    'text' => 'Nueva',
+                    'text' => 'Nuevo',
                     'url'  => 'pacientes/create',
                     'icon' => 'fas fa-user-plus'
                 ],                
             ],
         ],
         [
-            'text'       => 'Prestadores',
-            'url'        => '#',
+            'text'        => 'Prestadores',
+            'url'         => '#',
             'icon'        => 'fas fa-user-tie',
+            'submenu' => [
+                [
+                    'text' => 'Listado',
+                    'url'  => 'prestadores',
+                    'icon' => 'fas fa-th-list'
+                ],
+                [
+                    'text' => 'Nuevo',
+                    'url'  => 'prestadores/create',
+                    'icon' => 'fas fa-user-plus'
+                ],
+            ],
         ],
         [
             'text'        => 'Configuracion',

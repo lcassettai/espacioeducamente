@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use App\Models\Genero;
 use App\Models\Paciente;
 use App\Models\Telefono;
+use App\Models\Prestador;
 
 class Persona extends Model
 {
@@ -41,5 +42,10 @@ class Persona extends Model
 
     public function pacientes(){
         return $this->hasMany(Paciente::class);
+    }
+
+    public function prestadores()
+    {
+        return $this->hasMany(Prestador::class);
     }
 }

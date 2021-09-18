@@ -17,7 +17,6 @@ class CreatePrestadoresTable extends Migration
             $table->id();
             $table->timestamps();
 
-            $table->boolean('bloqueado')->default(false);
             $table->unsignedBigInteger('persona_id');
 
             $table->foreign('persona_id')->references('id')->on('personas');

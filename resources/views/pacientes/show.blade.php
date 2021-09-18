@@ -14,10 +14,11 @@
         <div class="col-md-3">
             <div class="card card-info">
                 <div class="card-header card-info text-center">
-                    <img class="profile-user-img img-fluid img-circle" src="{{asset('img/user.png')}}"
+                    <img class="profile-user-img img-fluid img-circle" src="{{ asset('img/user.png') }}"
                         alt="User profile picture" width="300" height="300">
                     <h3>{{ $paciente->persona->nombre }}
                         {{ $paciente->persona->apellido }}</h3>
+                    <p class="text-white text-center">Paciente</p>
                 </div>
                 <div class="card-body">
                     <ul class="list-group list-group-unbordered">
@@ -66,26 +67,20 @@
         </div>
 
         <div class="col-md-9">
-            <div class="card card-info">
-                <div class="card-header">
-                    <h4>Datos del paciente</h4>
-                </div>  
-                <div class="card-body">
-                    <ul class="nav nav-tabs" id="myTab" role="tablist">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark active" id="diagnosticos-tab" data-toggle="tab"
-                                href="#diagnosticos" role="tab" aria-controls="diagnosticos"
-                                aria-selected="true">Diagnosticos</a>
+            <div class="card">
+                <div class="card-header p-2">
+                    <ul class="nav nav-pills">
+                        <li class="nav-item"><a class="nav-link active" href="#diagnostico"
+                                data-toggle="tab">Diagnostico</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#tratamientos" data-toggle="tab">Tratamientos</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" id="profile-tab" data-toggle="tab" href="#profile" role="tab"
-                                aria-controls="profile" aria-selected="false">Obra social</a>
+                        <li class="nav-item"><a class="nav-link" href="#settings" data-toggle="tab">Contacto</a>
                         </li>
                     </ul>
-                    <div class="tab-content p-2" id="myTabContent">
-                        <!-- TAB diagnosticos -->
-                        <div class="tab-pane fade show active" id="diagnosticos" role="tabpanel"
-                            aria-labelledby="diagnosticos-tab">
+                </div><!-- /.card-header -->
+                <div class="card-body">
+                    <div class="tab-content">
+                        <div class="active tab-pane" id="diagnostico">
                             <div class="pt-2 pb-2 ">
                                 <button type="button" class="btn btn-success" data-toggle="modal"
                                     data-target="#exampleModal">
@@ -111,21 +106,26 @@
                                             <div class="card-body">
                                                 <strong>Detalle : </strong>
                                                 <p>
-                                                     {{ $diagnostico->detalle }}
+                                                    {{ $diagnostico->detalle }}
                                                 </p>
-                                                <br/>
-                                                <a class="btn btn-danger" href="{{ $diagnostico->archivo_url }}"><i class="fas fa-file-pdf"></i>Descarga diagnostico</a>
+                                                <br />
+                                                <a class="btn btn-danger" href="{{ $diagnostico->archivo_url }}"><i
+                                                        class="fas fa-file-pdf"></i>Descarga diagnostico</a>
                                             </div>
                                         </div>
                                     </div>
                                 @endforeach
                             </div>
                         </div>
-                        <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">...</div>
-                        <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">...</div>
+                        <div class="tab-pane" id="tratamientos">
+                            ...tratamiento
+                        </div>
+                        <!-- /.tab-pane -->
                     </div>
-                </div>
+                    <!-- /.tab-content -->
+                </div><!-- /.card-body -->
             </div>
+            <!-- /.nav-tabs-custom -->
         </div>
     </div>
 
@@ -145,7 +145,7 @@
                 <div class="modal-body">
                     <form method="POST" action="{{ route('diagnosticos.store') }}" enctype="multipart/form-data">
                         @csrf
-                        <input type="hidden" name="paciente" value="{{$paciente->id}}">
+                        <input type="hidden" name="paciente" value="{{ $paciente->id }}">
                         <!-- Fecha-->
                         <div class="form-group">
                             <label for="fecha">Fecha</label>
@@ -179,14 +179,14 @@
     </div>
 @stop
 
-@if(session('edit') == 'ok')  
+@if (session('edit') == 'ok')
     @section('js')
         <script>
-        Swal.fire(
-            'Buen trabajo!',
-            'Los datos del pacientee fueron editados con exito!',
-            'success'
-        )
+            Swal.fire(
+                'Buen trabajo!',
+                'Los datos del pacientee fueron editados con exito!',
+                'success'
+            )
         </script>
     @endsection
 @endif
