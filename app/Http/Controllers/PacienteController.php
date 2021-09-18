@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use App\Models\{Persona,Paciente,Genero};
+use App\Models\{Persona,Paciente,Genero,Diagnostico};
 use App\Http\Requests\StorePaciente;
 
 class PacienteController extends Controller
@@ -55,7 +55,12 @@ class PacienteController extends Controller
         ]);
 
         $paciente->persona->update($datos);
+        
+        return redirect()->route('pacientes.show', $paciente->id)->with('edit','ok');
+    }
 
-        return redirect()->route('pacientes.index')->with('edit', 'ok');
+    public function show(Paciente $paciente){
+
+        return view('pacientes.show',compact('paciente'));
     }
 }

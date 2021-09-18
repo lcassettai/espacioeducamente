@@ -11,7 +11,6 @@
     </a>
 @stop
 
-
 @section('content')
         <div class="col-md-12">
             <div class="card card-info">
@@ -29,7 +28,7 @@
                                 <th>Documento</th>
                                 <th>Fecha Nacimiento</th>
                                 <th>Cuenta con CUD</th>
-                                <th>Opciones</th>
+                                <th></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -42,7 +41,7 @@
                                     <td>{{ $p->fecha_nacimiento }}</td>
                                     <td>{{ ($p->tiene_cud) ? "SI":"NO" }}</td>
                                     <td>
-                                        <a class="btn btn-info" href="{{route('pacientes.edit',$p->id)}}"><i class="fas fa-eye"></i></a>
+                                        <a class="btn btn-info" href="{{route('pacientes.show',$p->id)}}"><i class="fas fa-eye"></i></a>
                                     </td>
                                 </tr>
                             @endforeach
@@ -53,7 +52,6 @@
             </div>
             <!-- /.card -->
         </div>
-    </div>
 @stop
 
 
@@ -69,14 +67,3 @@
     @endsection
 @endif
 
-@if(session('edit') == 'ok')  
-    @section('js')
-        <script>
-        Swal.fire(
-            'Buen trabajo!',
-            'El paciente se edito con exito!',
-            'success'
-        )
-        </script>
-    @endsection
-@endif

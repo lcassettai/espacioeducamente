@@ -349,15 +349,22 @@ return [
             'icon'        => 'fas fa-user-tie',
         ],
         [
-            'text'       => 'Obras sociales',
-            'url'        => 'obras_sociales',
-            'icon'        => 'fas fa-briefcase',
-        ],
-        [
-            'text'       => 'Generos',
-            'url'        => 'generos',
-            'icon'        => 'fas fa-transgender-alt',
-        ],
+            'text'        => 'Configuracion',
+            'url'         => '#',
+            'icon'        => 'fas fa-cogs',
+            'submenu' => [                
+                [
+                    'text'       => 'Obras sociales',
+                    'url'        => 'obras_sociales',
+                    'icon'        => 'fas fa-briefcase',
+                ],
+                [
+                    'text'       => 'Generos',
+                    'url'        => 'generos',
+                    'icon'        => 'fas fa-transgender-alt',
+                ],
+            ],
+        ],        
     ],
 
     /*
@@ -396,7 +403,7 @@ return [
 
     'plugins' => [
         'Datatables' => [
-            'active' => false,
+            'active' => true,
             'files' => [
                 [
                     'type' => 'js',
