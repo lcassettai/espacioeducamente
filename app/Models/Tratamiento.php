@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\{Prestacion,Paciente};
+use App\Models\{Prestacion,Paciente,Prestador};
 
 class Tratamiento extends Model
 {
@@ -16,5 +16,10 @@ class Tratamiento extends Model
 
     public function paciente(){
         return $this->belongsTo(Paciente::class);
+    }
+
+    public function prestador()
+    {
+        return $this->belongsTo(Prestador::class);
     }
 }

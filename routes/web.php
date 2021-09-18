@@ -7,6 +7,7 @@ use App\Http\Controllers\PacienteController;
 use App\Http\Controllers\WelcomeController;
 use App\Http\Controllers\PrestadorController;
 use App\Http\Controllers\ServicioController;
+use App\Http\Controllers\TratamientoController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -27,6 +28,7 @@ Route::resource('obras_sociales', ObraSocialController::class);
 Route::resource('servicios', ServicioController::class);
 Route::resource('generos', GeneroController::class);
 Route::resource('prestadores', PrestadorController::class);
+Route::resource('tratamientos', TratamientoController::class);
 
 Route::post('diagnosticos/store', [DiagnosticoController::class, 'store'])->name('diagnosticos.store');
 
