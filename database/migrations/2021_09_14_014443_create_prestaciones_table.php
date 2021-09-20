@@ -18,8 +18,9 @@ class CreatePrestacionesTable extends Migration
             $table->timestamps();
 
             $table->date('fecha_alta');
-            $table->boolean('esta_activo');
-            $table->text('observaciones');
+            $table->boolean('esta_activo')->default(true);
+            $table->text('observaciones')->nullable();
+            $table->integer('sesiones_asignadas');
             
             $table->unsignedBigInteger('tratamiento_id');
             $table->unsignedBigInteger('prestador_id');

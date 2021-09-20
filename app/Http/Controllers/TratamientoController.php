@@ -6,7 +6,9 @@ use App\Http\Requests\StoreTratamiento;
 use Illuminate\Http\Request;
 use App\Models\Prestador;
 use App\Models\Paciente;
+use App\Models\Prestacion;
 use App\Models\Tratamiento;
+use App\Models\Servicio;
 
 class TratamientoController extends Controller
 {
@@ -66,9 +68,9 @@ class TratamientoController extends Controller
         
         $datos['esta_activo'] = $request->has('esta_activo');
 
-        Tratamiento::create($datos);
+        $tratamiento = Tratamiento::create($datos);
 
-        return redirect()->route('tratamientos.index')->with('create', 'ok');
+        return redirect()->route('tratamientos.show',$tratamiento)->with('create', 'ok');
     }
 
     /**
@@ -77,10 +79,21 @@ class TratamientoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Tratamiento $tratamiento)
     {
-        return "estoy en show";
-        //
+        $servicios = Servicio::all();
+
+        $prestaciones = Prestacion::join('tratamientos', 'tratamientos.id', 'prestaciones.tratamiento_id')
+        ->where('tratamiento_id', $tratamiento->id)
+            ->get();
+
+        $prestadores = Prestador::join('personas', 'prestadores.persona_id', 'personas.id')
+        ->where('esta_activo', true)
+        ->orderBy('apellido', 'desc')
+        ->select('personas.*', 'prestadores.*')
+        ->get();
+
+        return view('tratamientos.show', compact('tratamiento'))->with(compact('prestadores'))->with(compact('servicios'))->with(compact('prestaciones'));
     }
 
     /**
@@ -114,23 +127,6 @@ class TratamientoController extends Controller
      */
     public function destroy($id)
     {
-        return "estoy en destroy";
         //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function admin(Tratamiento $tratamiento){
-        $prestadores = Prestador::join('personas', 'prestadores.persona_id', 'personas.id')
-        ->where('esta_activo', true)
-        ->orderBy('apellido', 'desc')
-        ->select('personas.*', 'prestadores.*')
-        ->get();
-
-        return view('tratamientos.admin',compact('tratamiento'))->with(compact('prestadores'));
     }
 }
