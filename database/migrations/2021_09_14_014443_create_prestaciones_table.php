@@ -23,9 +23,11 @@ class CreatePrestacionesTable extends Migration
             
             $table->unsignedBigInteger('tratamiento_id');
             $table->unsignedBigInteger('prestador_id');
+            $table->unsignedBigInteger('servicio_id');
 
             $table->foreign('tratamiento_id')->references('id')->on('tratamientos');
             $table->foreign('prestador_id')->references('id')->on('prestadores');
+            $table->foreign('servicio_id')->references('id')->on('servicios');
         });
     }
 
