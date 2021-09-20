@@ -11,6 +11,16 @@ class Prestacion extends Model
     use HasFactory;
 
     protected $table = "prestaciones";
+
+    protected $fillable = [
+        "prestador_id",
+        "tratamiento_id",
+        "servicio_id",
+        "estado",
+        "fecha_alta",
+        "observaciones",
+        "sesiones_asignadas",
+    ];
     
     public function informes(){
         return $this->hasMany(Informe::class);
@@ -25,6 +35,10 @@ class Prestacion extends Model
     }
     
     public function servicio(){
-        return $this->hasOne(Servicio::class);
+        return $this->belongsTo(Servicio::class);
+    }
+
+    public function validarNuevaPrestacion($tratamiento){
+        return $tratamiento;
     }
 }

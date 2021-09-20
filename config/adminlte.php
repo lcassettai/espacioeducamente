@@ -327,6 +327,11 @@ return [
             'icon'        => 'fas fa-home',
         ],
         [
+            'text'       => 'Tratamientos',
+            'url'        => 'tratamientos',
+            'icon'        => 'fas fa-file-medical',
+        ],
+        [
             'text'        => 'Pacientes',
             'url'         => '#',
             'icon'        => 'fas fa-address-card',
@@ -440,7 +445,7 @@ return [
             ],
         ],
         'Select2' => [
-            'active' => false,
+            'active' => true,
             'files' => [
                 [
                     'type' => 'js',

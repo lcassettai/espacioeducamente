@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\{Prestacion,Persona};
+use App\Models\{Prestacion,Persona,Tratamiento};
 
 class Prestador extends Model
 {
@@ -22,5 +22,9 @@ class Prestador extends Model
 
     public function prestaciones(){
         return $this->hasMany(Prestacion::class);
+    }
+
+    public function tratamientos(){
+        return $this->hasMany(Tratamiento::class);
     }
 }

@@ -22,8 +22,10 @@ class CreateTratamientosTable extends Migration
             $table->boolean('esta_activo')->default(true);
             
             $table->unsignedBigInteger('paciente_id');
+            $table->unsignedBigInteger('prestador_id');
 
             $table->foreign('paciente_id')->references('id')->on('pacientes');
+            $table->foreign('prestador_id')->references('id')->on('prestadores');
 
         });
     }
