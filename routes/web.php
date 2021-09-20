@@ -28,7 +28,9 @@ Route::resource('obras_sociales', ObraSocialController::class);
 Route::resource('servicios', ServicioController::class);
 Route::resource('generos', GeneroController::class);
 Route::resource('prestadores', PrestadorController::class);
+Route::get('tratamientos/{tratamiento}/admin', [TratamientoController::class, 'admin'])->name('tratamientos.admin');
 Route::resource('tratamientos', TratamientoController::class);
+
 
 Route::post('diagnosticos/store', [DiagnosticoController::class, 'store'])->name('diagnosticos.store');
 

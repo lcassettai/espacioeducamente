@@ -124,8 +124,13 @@ class TratamientoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function admin($id){
-      
-        return "tu mina";
+    public function admin(Tratamiento $tratamiento){
+        $prestadores = Prestador::join('personas', 'prestadores.persona_id', 'personas.id')
+        ->where('esta_activo', true)
+        ->orderBy('apellido', 'desc')
+        ->select('personas.*', 'prestadores.*')
+        ->get();
+
+        return view('tratamientos.admin',compact('tratamiento'))->with(compact('prestadores'));
     }
 }
