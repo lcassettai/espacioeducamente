@@ -10,6 +10,13 @@ class Tratamiento extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'prestador_id',
+        'paciente_id',
+        'fecha_inicio',
+        'esta_activo'
+    ];
+
     public function prestaciones(){
         return $this->hasMany(Prestacion::class);
     }
