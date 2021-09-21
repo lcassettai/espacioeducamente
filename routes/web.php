@@ -29,9 +29,10 @@ Route::resource('obras_sociales', ObraSocialController::class);
 Route::resource('servicios', ServicioController::class);
 Route::resource('generos', GeneroController::class);
 Route::resource('prestadores', PrestadorController::class);
-Route::resource('prestaciones', PrestacionController::class);
 Route::resource('tratamientos', TratamientoController::class);
+Route::resource('prestaciones', PrestacionController::class)->except(['index']);
 
 
+Route::get('prestaciones/{tratamiento}/list', [PrestacionController::class, 'list'])->name('prestaciones.list');
 Route::post('diagnosticos/store', [DiagnosticoController::class, 'store'])->name('diagnosticos.store');
 

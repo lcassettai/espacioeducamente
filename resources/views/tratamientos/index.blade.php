@@ -27,7 +27,7 @@
                                             {{ date('d/m/Y', strtotime($t->fecha_inicio)) }}</small></p>
                         </div>
                         <br>
-                        <a href="#" class="btn btn-info btn-block">Ver</a>
+                        <a href="{{ route('prestaciones.list', $t->id) }}" class="btn btn-info btn-block">Ver</a>
                         <a href="{{ route('tratamientos.show', $t->id) }}" class="btn btn-info btn-block">Administrar</a>
                     </div>
                 </div>

@@ -4,10 +4,18 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Prestacion;
+use App\Models\Tratamiento;
 use App\Http\Requests\StorePrestacion;
 
 class PrestacionController extends Controller
 {
+    public function list(Tratamiento $tratamiento)
+    {
+        $prestaciones = $tratamiento->prestaciones;
+
+        return view('prestaciones.list',compact('prestaciones'))->with(compact('tratamiento'));
+    }
+
     public function store(StorePrestacion $request){
 
         $prestaciones_activas =  Prestacion::select('*')
@@ -25,5 +33,9 @@ class PrestacionController extends Controller
         Prestacion::create($request->all());
 
         return redirect()->route('tratamientos.show',$request->tratamiento_id)->with('prestacion','ok');
+    }
+
+    public function show(){
+        return "soy show";
     }
 }
