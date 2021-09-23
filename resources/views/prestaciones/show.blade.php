@@ -70,20 +70,66 @@
                                     <tr>
                                         <th style="width: 20px">Fecha</th>
                                         <th>Objetivos cumplidos</th>
-                                        <th style="width: 10%">Opciones</th>
+                                        <th></th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr>
                                         <td>23/11/1991</td>
                                         <td>SI / NO</td>
-                                        <td>editar | ver </td>
+                                        <td class="project-actions text-right">
+                                                <a class="btn btn-primary btn-sm" href="#">
+                                                    <i class="fas fa-eye">
+                                                    </i>
+                                                </a>
+                                                <a class="btn btn-info btn-sm" href="#">
+                                                    <i class="fas fa-pencil-alt">
+                                                    </i>
+                                                </a>
+                                                <a class="btn btn-danger btn-sm" href="#">
+                                                    <i class="fas fa-trash">
+                                                    </i>
+                                                </a>
+                                            </td>
                                     </tr>
                                 </tbody>
                             </table>
                         </div>
                         <div class="tab-pane" id="informes">
-                            ...tratamiento
+                            <a href="{{ route('informes.create', $prestacion->id) }}" class="btn btn-info"> Nuevo
+                                informe</a>
+                            <br><br>
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th style="width: 20px">Fecha</th>
+                                        <th>Titulo</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($informes as $informe)
+                                        <tr>
+                                            <td>{{ date('d/m/Y',strtotime($informe->fecha)) }}</td>
+                                            <td>{{ $informe->titulo }}</td>
+                                            <td class="project-actions text-right">
+                                                <a class="btn btn-primary btn-sm" href="#">
+                                                    <i class="fas fa-eye">
+                                                    </i>
+                                                </a>
+                                                <a class="btn btn-info btn-sm" href="#">
+                                                    <i class="fas fa-pencil-alt">
+                                                    </i>
+                                                </a>
+                                                <a class="btn btn-danger btn-sm" href="#">
+                                                    <i class="fas fa-trash">
+                                                    </i>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
                         </div>
                         <!-- /.tab-pane -->
                     </div>
