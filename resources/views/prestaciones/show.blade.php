@@ -1,0 +1,122 @@
+@extends('adminlte::page')
+
+@section('title', 'Tratamiento')
+
+@section('content_header')
+    <h2 class="text-center">
+        Prestacion de <strong>{{ $prestacion->servicio->servicio }}</strong>
+    </h2>
+
+@stop
+
+
+@section('content')
+    <div class="row">
+        <!--Info del paciente -->
+        <div class="col-md-3">
+            <div class="card card-info">
+                <div class="card-header card-info text-center">
+                    <img class="profile-user-img img-fluid img-circle" src="{{ asset('img/user.png') }}"
+                        alt="User profile picture" width="300" height="300">
+                    <h3>{{ $prestacion->tratamiento->paciente->persona->nombre }}
+                        {{ $prestacion->tratamiento->paciente->persona->apellido }}</h3>
+                    <p class="text-white text-center">Paciente</p>
+                </div>
+                <div class="card-body">
+                    <ul class="list-group list-group-unbordered">
+                        <li class="list-group-item">
+                            <b>Nombre: </b> <span
+                                class="float-right">{{ $prestacion->tratamiento->paciente->persona->nombre }}</span>
+                        </li>
+                        <li class="list-group-item">
+                            <b>Apellido: </b> <span
+                                class="float-right">{{ $prestacion->tratamiento->paciente->persona->apellido }}</span>
+                        </li>
+                        <li class="list-group-item">
+                            <b>Inicio del tratamiento: </b> <span
+                                class="float-right">{{ date('d/m/Y', strtotime($prestacion->tratamiento->fecha_inicio)) }}</span>
+                        </li>
+                        <li class="list-group-item">
+                            <b>Cuenta con Cud: </b> <span
+                                class="float-right">{{ $prestacion->tratamiento->paciente->persona->tiene_cud ? 'SI' : 'NO' }}</span>
+                        </li>
+
+                    </ul>
+                    <br>
+                    <a href="{{ route('pacientes.show', $prestacion->tratamiento->paciente->id) }}"
+                        class="btn btn-info btn-block"><b>Ver información del paciente</b></a>
+                </div>
+                <!--Info del paciente -->
+
+            </div>
+        </div>
+
+        <div class="col-md-9">
+            <div class="card">
+                <div class="card-header p-2">
+                    <ul class="nav nav-pills">
+                        <li class="nav-item"><a class="nav-link active" href="#sesiones"
+                                data-toggle="tab">Sesiones</a>
+                        </li>
+                        <li class="nav-item"><a class="nav-link" href="#informes" data-toggle="tab">Informes</a>
+                        </li>
+                    </ul>
+                </div><!-- /.card-header -->
+                <div class="card-body">
+                    <div class="tab-content">
+                        <div class="active tab-pane" id="sesiones">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th style="width: 20px">Fecha</th>
+                                        <th>Objetivos cumplidos</th>
+                                        <th style="width: 10%">Opciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>23/11/1991</td>
+                                        <td>SI / NO</td>
+                                        <td>editar | ver </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="tab-pane" id="informes">
+                            ...tratamiento
+                        </div>
+                        <!-- /.tab-pane -->
+                    </div>
+                    <!-- /.tab-content -->
+                </div><!-- /.card-body -->
+            </div>
+            <!-- /.nav-tabs-custom -->
+        </div>
+    </div>
+    </div>
+@stop
+
+@if (session('prestacion') == 'ok')
+    @section('js')
+        <script>
+            Swal.fire(
+                'Buen trabajo!',
+                'La prestacion se cargo con exito!',
+                'success'
+            )
+        </script>
+    @endsection
+@endif
+
+
+@error('prestaciones_activas')
+    @section('js')
+        <script>
+            Swal.fire(
+                'Oops parece que algo salio mal!',
+                'El paciente ya tiene asignado este servicio ',
+                'error'
+            )
+        </script>
+    @endsection
+@enderror

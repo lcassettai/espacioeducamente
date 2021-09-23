@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Prestacion;
 use App\Models\Tratamiento;
+use App\Models\Informe;
 use App\Http\Requests\StorePrestacion;
 
 class PrestacionController extends Controller
@@ -35,7 +36,18 @@ class PrestacionController extends Controller
         return redirect()->route('tratamientos.show',$request->tratamiento_id)->with('prestacion','ok');
     }
 
-    public function show(){
-        return "soy show";
+    public function show($id){
+        $prestacion = Prestacion::find($id);
+        
+        $informes = Informe::where('prestacion_id',$id);
+        /*
+       $prestacion =   Prestacion::select()
+                         ->join('tratamientos','tratamientos.id','tratamiento_id')
+                         ->join('pacientes', 'pacientes.id', 'paciente_id')
+                         ->join('personas', 'personas.id', 'persona_id')
+                         ->where('prestaciones.id',$id)->first(); 
+        */
+
+        return view('prestaciones.show',compact('prestacion'))->with(compact('informes'));
     }
 }

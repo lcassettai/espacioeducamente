@@ -20,7 +20,7 @@
                         <h4>  {{$p->servicio->servicio}}<h4>
                         <p>{{$p->prestador->persona->apellido}}</p>
                         <br>
-                        <a href="#" class="btn btn-info btn-block">Ver</a>
+                        <a href="{{route('prestaciones.show',$p->id)}}" class="btn btn-info btn-block">Ver</a>
                     </div>
                 </div>
             </div>
