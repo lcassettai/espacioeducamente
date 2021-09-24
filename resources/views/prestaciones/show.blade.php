@@ -37,8 +37,12 @@
                                 class="float-right">{{ date('d/m/Y', strtotime($prestacion->tratamiento->fecha_inicio)) }}</span>
                         </li>
                         <li class="list-group-item">
-                            <b>Cuenta con Cud: </b> <span
-                                class="float-right">{{ $prestacion->tratamiento->paciente->persona->tiene_cud ? 'SI' : 'NO' }}</span>
+                            <b>Inicio de la prestacion: </b> <span
+                                class="float-right">{{ date('d/m/Y', strtotime($prestacion->fecha_inicio)) }}</span>
+                        </li>
+                        <li class="list-group-item">
+                            <b>Prestador: </b> <span
+                                class="float-right">{{ $prestacion->prestador->persona->apellido . ' ' . $prestacion->prestador->persona->nombre }}</span>
                         </li>
 
                     </ul>
@@ -52,7 +56,7 @@
         </div>
 
         <div class="col-md-9">
-            <div class="card">
+            <div class="card card-info card-outline">
                 <div class="card-header p-2">
                     <ul class="nav nav-pills">
                         <li class="nav-item"><a class="nav-link active" href="#sesiones"
@@ -96,44 +100,47 @@
                             </table>
                         </div>
                         <div class="tab-pane" id="informes">
-                            <a href="{{ route('informes.create', $prestacion->id) }}" class="btn btn-info"> Nuevo
+                            <a href="{{ route('informes.create', $prestacion->id) }}" class="btn btn-info"><i
+                                    class="far fa-file-alt"></i> Nuevo
                                 informe</a>
                             <br><br>
                             <div class="table-responsive">
                                 <table class="table table-striped">
-                                <thead>
-                                    <tr>
-                                        <th style="width: 20px">Fecha</th>
-                                        <th>Titulo</th>
-                                        <th class="text-right">Opciones</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach ($informes as $informe)
+                                    <thead>
                                         <tr>
-                                            <td>{{ date('d/m/Y', strtotime($informe->fecha)) }}</td>
-                                            <td>{{ $informe->titulo . $informe->titulo . $informe->titulo }}</td>
-                                            <td class="project-actions text-right">
-                                                <a class="btn btn-primary btn-sm" href="">
-                                                    <i class="fas fa-eye">
-                                                    </i>
-                                                </a>
-                                                <a class="btn btn-info btn-sm"
-                                                    href="{{ route('informes.edit', $informe) }}">
-                                                    <i class="fas fa-pencil-alt">
-                                                    </i>
-                                                </a>
-                                                <form method="POST" action="{{ route('informes.destroy', $informe) }}" class="d-inline form-eliminar">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button class="btn btn-danger btn-sm"> <i class="fas fa-trash">
-                                                        </i></button> 
-                                                </form>
-                                            </td>
+                                            <th style="width: 20px">Fecha</th>
+                                            <th>Titulo</th>
+                                            <th class="text-right">Opciones</th>
                                         </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($informes as $informe)
+                                            <tr>
+                                                <td>{{ date('d/m/Y', strtotime($informe->fecha)) }}</td>
+                                                <td>{{ $informe->titulo }}</td>
+                                                <td class="project-actions text-right">
+                                                    <a class="btn btn-primary btn-sm" href="">
+                                                        <i class="fas fa-eye">
+                                                        </i>
+                                                    </a>
+                                                    <a class="btn btn-info btn-sm"
+                                                        href="{{ route('informes.edit', $informe) }}">
+                                                        <i class="fas fa-pencil-alt">
+                                                        </i>
+                                                    </a>
+                                                    <form method="POST"
+                                                        action="{{ route('informes.destroy', $informe) }}"
+                                                        class="d-inline form-eliminar">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button class="btn btn-danger btn-sm"> <i class="fas fa-trash">
+                                                            </i></button>
+                                                    </form>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                         <!-- /.tab-pane -->
@@ -150,17 +157,17 @@
 
 @section('js')
     @if (session('carga') == 'ok')
-            <script>
-                Swal.fire(
-                    'Buen trabajo!',
-                    'Se cargo con exito!',
-                    'success'
-                )
-            </script>
+        <script>
+            Swal.fire(
+                'Buen trabajo!',
+                'Se cargo con exito!',
+                'success'
+            )
+        </script>
     @endif
-    
+
     <script>
-         $('.form-eliminar').submit(function(e){
+        $('.form-eliminar').submit(function(e) {
             e.preventDefault();
 
             Swal.fire({
@@ -172,13 +179,11 @@
                 cancelButtonColor: '#ef5350 ',
                 confirmButtonText: 'Si, borralo!',
                 cancelButtonText: 'cancelar',
-                }).then((result) => {
+            }).then((result) => {
                 if (result.isConfirmed) {
                     this.submit();
                 }
-                })
-         });
+            })
+        });
     </script>
 @endsection
-
-
