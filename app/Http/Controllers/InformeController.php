@@ -36,4 +36,15 @@ class InformeController extends Controller
 
         return redirect()->route('prestaciones.show', $request->prestacion_id)->with('edit', 'ok');   
     }
+
+    public function edit(Informe $informe)
+    {
+        return view('informes.edit',compact('informe'));
+    }
+
+    public function update(Request $request,Informe $informe){
+        $informe->update($request->all());
+
+        return redirect()->route('prestaciones.show', $informe->prestacion_id)->with('edit', 'ok');
+    }   
 }

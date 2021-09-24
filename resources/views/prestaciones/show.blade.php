@@ -113,11 +113,11 @@
                                             <td>{{ date('d/m/Y',strtotime($informe->fecha)) }}</td>
                                             <td>{{ $informe->titulo }}</td>
                                             <td class="project-actions text-right">
-                                                <a class="btn btn-primary btn-sm" href="#">
+                                                <a class="btn btn-primary btn-sm" href="">
                                                     <i class="fas fa-eye">
                                                     </i>
                                                 </a>
-                                                <a class="btn btn-info btn-sm" href="#">
+                                                <a class="btn btn-info btn-sm" href="{{route('informes.edit',$informe)}}">
                                                     <i class="fas fa-pencil-alt">
                                                     </i>
                                                 </a>
