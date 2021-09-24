@@ -39,7 +39,8 @@ class PrestacionController extends Controller
     public function show($id){
         $prestacion = Prestacion::find($id);
         
-        $informes = Informe::where('prestacion_id',$id);
+        $informes = Informe::all()->where('prestacion_id',$id);
+
         /*
        $prestacion =   Prestacion::select()
                          ->join('tratamientos','tratamientos.id','tratamiento_id')

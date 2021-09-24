@@ -37,8 +37,12 @@
                                 class="float-right">{{ date('d/m/Y', strtotime($prestacion->tratamiento->fecha_inicio)) }}</span>
                         </li>
                         <li class="list-group-item">
-                            <b>Cuenta con Cud: </b> <span
-                                class="float-right">{{ $prestacion->tratamiento->paciente->persona->tiene_cud ? 'SI' : 'NO' }}</span>
+                            <b>Inicio de la prestacion: </b> <span
+                                class="float-right">{{ date('d/m/Y', strtotime($prestacion->fecha_inicio)) }}</span>
+                        </li>
+                        <li class="list-group-item">
+                            <b>Prestador: </b> <span
+                                class="float-right">{{ $prestacion->prestador->persona->apellido . ' ' . $prestacion->prestador->persona->nombre }}</span>
                         </li>
 
                     </ul>
@@ -52,7 +56,7 @@
         </div>
 
         <div class="col-md-9">
-            <div class="card">
+            <div class="card card-info card-outline">
                 <div class="card-header p-2">
                     <ul class="nav nav-pills">
                         <li class="nav-item"><a class="nav-link active" href="#sesiones"
@@ -70,20 +74,74 @@
                                     <tr>
                                         <th style="width: 20px">Fecha</th>
                                         <th>Objetivos cumplidos</th>
-                                        <th style="width: 10%">Opciones</th>
+                                        <th></th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr>
                                         <td>23/11/1991</td>
                                         <td>SI / NO</td>
-                                        <td>editar | ver </td>
+                                        <td class="project-actions text-right">
+                                            <a class="btn btn-primary btn-sm" href="#">
+                                                <i class="fas fa-eye">
+                                                </i>
+                                            </a>
+                                            <a class="btn btn-info btn-sm" href="#">
+                                                <i class="fas fa-pencil-alt">
+                                                </i>
+                                            </a>
+                                            <a class="btn btn-danger btn-sm" href="#">
+                                                <i class="fas fa-trash">
+                                                </i>
+                                            </a>
+                                        </td>
                                     </tr>
                                 </tbody>
                             </table>
                         </div>
                         <div class="tab-pane" id="informes">
-                            ...tratamiento
+                            <a href="{{ route('informes.create', $prestacion->id) }}" class="btn btn-info"><i
+                                    class="far fa-file-alt"></i> Nuevo
+                                informe</a>
+                            <br><br>
+                            <div class="table-responsive">
+                                <table class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th style="width: 20px">Fecha</th>
+                                            <th>Titulo</th>
+                                            <th class="text-right">Opciones</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($informes as $informe)
+                                            <tr>
+                                                <td>{{ date('d/m/Y', strtotime($informe->fecha)) }}</td>
+                                                <td>{{ $informe->titulo }}</td>
+                                                <td class="project-actions text-right">
+                                                    <a class="btn btn-primary btn-sm" href="">
+                                                        <i class="fas fa-eye">
+                                                        </i>
+                                                    </a>
+                                                    <a class="btn btn-info btn-sm"
+                                                        href="{{ route('informes.edit', $informe) }}">
+                                                        <i class="fas fa-pencil-alt">
+                                                        </i>
+                                                    </a>
+                                                    <form method="POST"
+                                                        action="{{ route('informes.destroy', $informe) }}"
+                                                        class="d-inline form-eliminar">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button class="btn btn-danger btn-sm"> <i class="fas fa-trash">
+                                                            </i></button>
+                                                    </form>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                         <!-- /.tab-pane -->
                     </div>
@@ -96,27 +154,36 @@
     </div>
 @stop
 
-@if (session('prestacion') == 'ok')
-    @section('js')
+
+@section('js')
+    @if (session('carga') == 'ok')
         <script>
             Swal.fire(
                 'Buen trabajo!',
-                'La prestacion se cargo con exito!',
+                'Se cargo con exito!',
                 'success'
             )
         </script>
-    @endsection
-@endif
+    @endif
 
+    <script>
+        $('.form-eliminar').submit(function(e) {
+            e.preventDefault();
 
-@error('prestaciones_activas')
-    @section('js')
-        <script>
-            Swal.fire(
-                'Oops parece que algo salio mal!',
-                'El paciente ya tiene asignado este servicio ',
-                'error'
-            )
-        </script>
-    @endsection
-@enderror
+            Swal.fire({
+                title: '¿Estas seguro?',
+                text: "Se va a borrar este informe de manera permanente",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#66bb6a',
+                cancelButtonColor: '#ef5350 ',
+                confirmButtonText: 'Si, borralo!',
+                cancelButtonText: 'cancelar',
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    this.submit();
+                }
+            })
+        });
+    </script>
+@endsection

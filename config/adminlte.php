@@ -473,9 +473,14 @@ return [
             'active' => true,
             'files' => [
                 [
+                    'type' => 'css',
+                    'asset' => false,
+                    'location' => '/vendor/sweetalert2/sweetalert2.min.css',
+                ],
+                [
                     'type' => 'js',
                     'asset' => false,
-                    'location' => '//cdn.jsdelivr.net/npm/sweetalert2@8',
+                    'location' => '/vendor/sweetalert2/sweetalert2.min.js',
                 ],
             ],
         ],
@@ -491,6 +496,26 @@ return [
                     'type' => 'js',
                     'asset' => false,
                     'location' => '//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/pace.min.js',
+                ],
+            ],
+        ],
+        'Summernote' => [
+            'active' => false,
+            'files' => [
+                [
+                    'type' => 'css',
+                    'asset' => false,
+                    'location' => '/vendor/summernote/summernote-bs4.min.css',
+                ],
+                [
+                    'type' => 'js',
+                    'asset' => false,
+                    'location' => '/vendor/summernote/summernote-bs4.min.js',
+                ],
+                [
+                    'type' => 'js',
+                    'asset' => false,
+                    'location' => '/vendor/summernote/lang/summernote-es-ES.min.js',
                 ],
             ],
         ],

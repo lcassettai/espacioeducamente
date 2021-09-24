@@ -18,7 +18,7 @@ class CreateInformesTable extends Migration
             $table->timestamps();
 
             $table->string('titulo',150);
-            $table->text('detalle')->nullable();
+            $table->text('observaciones')->nullable();
             $table->date('fecha')->default(now());
             $table->string('url_archivo',150);
             $table->unsignedBigInteger('prestacion_id');
