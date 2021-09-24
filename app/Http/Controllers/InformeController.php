@@ -34,7 +34,7 @@ class InformeController extends Controller
 
         $informe->save();
 
-        return redirect()->route('prestaciones.show', $request->prestacion_id)->with('edit', 'ok');   
+        return redirect()->route('prestaciones.show', $request->prestacion_id)->with('carga', 'ok');   
     }
 
     public function edit(Informe $informe)
@@ -45,6 +45,12 @@ class InformeController extends Controller
     public function update(Request $request,Informe $informe){
         $informe->update($request->all());
 
-        return redirect()->route('prestaciones.show', $informe->prestacion_id)->with('edit', 'ok');
+        return redirect()->route('prestaciones.show', $informe->prestacion_id)->with('carga', 'ok');
     }   
+
+    public function destroy(Informe $informe){
+        $informe->delete();
+
+        return redirect()->route('prestaciones.show', $informe->prestacion_id);
+    }
 }

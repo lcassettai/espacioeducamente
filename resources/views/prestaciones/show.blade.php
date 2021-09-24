@@ -78,19 +78,19 @@
                                         <td>23/11/1991</td>
                                         <td>SI / NO</td>
                                         <td class="project-actions text-right">
-                                                <a class="btn btn-primary btn-sm" href="#">
-                                                    <i class="fas fa-eye">
-                                                    </i>
-                                                </a>
-                                                <a class="btn btn-info btn-sm" href="#">
-                                                    <i class="fas fa-pencil-alt">
-                                                    </i>
-                                                </a>
-                                                <a class="btn btn-danger btn-sm" href="#">
-                                                    <i class="fas fa-trash">
-                                                    </i>
-                                                </a>
-                                            </td>
+                                            <a class="btn btn-primary btn-sm" href="#">
+                                                <i class="fas fa-eye">
+                                                </i>
+                                            </a>
+                                            <a class="btn btn-info btn-sm" href="#">
+                                                <i class="fas fa-pencil-alt">
+                                                </i>
+                                            </a>
+                                            <a class="btn btn-danger btn-sm" href="#">
+                                                <i class="fas fa-trash">
+                                                </i>
+                                            </a>
+                                        </td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -99,37 +99,42 @@
                             <a href="{{ route('informes.create', $prestacion->id) }}" class="btn btn-info"> Nuevo
                                 informe</a>
                             <br><br>
-                            <table class="table table-striped">
+                            <div class="table-responsive">
+                                <table class="table table-striped">
                                 <thead>
                                     <tr>
                                         <th style="width: 20px">Fecha</th>
                                         <th>Titulo</th>
-                                        <th></th>
+                                        <th class="text-right">Opciones</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @foreach ($informes as $informe)
                                         <tr>
-                                            <td>{{ date('d/m/Y',strtotime($informe->fecha)) }}</td>
-                                            <td>{{ $informe->titulo }}</td>
+                                            <td>{{ date('d/m/Y', strtotime($informe->fecha)) }}</td>
+                                            <td>{{ $informe->titulo . $informe->titulo . $informe->titulo }}</td>
                                             <td class="project-actions text-right">
                                                 <a class="btn btn-primary btn-sm" href="">
                                                     <i class="fas fa-eye">
                                                     </i>
                                                 </a>
-                                                <a class="btn btn-info btn-sm" href="{{route('informes.edit',$informe)}}">
+                                                <a class="btn btn-info btn-sm"
+                                                    href="{{ route('informes.edit', $informe) }}">
                                                     <i class="fas fa-pencil-alt">
                                                     </i>
                                                 </a>
-                                                <a class="btn btn-danger btn-sm" href="#">
-                                                    <i class="fas fa-trash">
-                                                    </i>
-                                                </a>
+                                                <form method="POST" action="{{ route('informes.destroy', $informe) }}" class="d-inline form-eliminar">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button class="btn btn-danger btn-sm"> <i class="fas fa-trash">
+                                                        </i></button> 
+                                                </form>
                                             </td>
                                         </tr>
                                     @endforeach
                                 </tbody>
                             </table>
+                            </div>
                         </div>
                         <!-- /.tab-pane -->
                     </div>
@@ -142,27 +147,38 @@
     </div>
 @stop
 
-@if (session('prestacion') == 'ok')
-    @section('js')
-        <script>
-            Swal.fire(
-                'Buen trabajo!',
-                'La prestacion se cargo con exito!',
-                'success'
-            )
-        </script>
-    @endsection
-@endif
+
+@section('js')
+    @if (session('carga') == 'ok')
+            <script>
+                Swal.fire(
+                    'Buen trabajo!',
+                    'Se cargo con exito!',
+                    'success'
+                )
+            </script>
+    @endif
+    
+    <script>
+         $('.form-eliminar').submit(function(e){
+            e.preventDefault();
+
+            Swal.fire({
+                title: '¿Estas seguro?',
+                text: "Se va a borrar este informe de manera permanente",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#66bb6a',
+                cancelButtonColor: '#ef5350 ',
+                confirmButtonText: 'Si, borralo!',
+                cancelButtonText: 'cancelar',
+                }).then((result) => {
+                if (result.isConfirmed) {
+                    this.submit();
+                }
+                })
+         });
+    </script>
+@endsection
 
 
-@error('prestaciones_activas')
-    @section('js')
-        <script>
-            Swal.fire(
-                'Oops parece que algo salio mal!',
-                'El paciente ya tiene asignado este servicio ',
-                'error'
-            )
-        </script>
-    @endsection
-@enderror
