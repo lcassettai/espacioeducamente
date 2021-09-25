@@ -16,7 +16,7 @@
                 </div>
                 <!-- /.card-header -->
                 <!-- form start -->
-                <form method="post" action="{{ route('prestadores.store') }}">
+                <form method="post" action="{{ route('prestadores.store') }}" enctype="multipart/form-data">
                     @csrf
                     <div class="card-body">
                         <!-- Nombre -->
@@ -119,10 +119,17 @@
                             @enderror
                         </div>
 
+                        <div class="form-group">
+                            <label for="imagen_perfil">Imagen de perfil</label><br>
+                            <input type="file" id="imagen_perfil" accept="image/*" name="imagen_perfil">
+                            @error('imagen_perfil')
+                                <small class="text-danger">{{ $message }}</small>
+                            @enderror
+                        </div>
+
                         <!--Estado -->
                         <div class="form-check">
-                            <input type="checkbox" class="form-check-input" id="esta_activo" name="esta_activo"
-                            @if (old('esta_activo', true))
+                            <input type="checkbox" class="form-check-input" id="esta_activo" name="esta_activo" @if (old('esta_activo', true))
                             checked
                             @endif>
                             <label class="form-check-label" for="esta_activo">El prestador esta activo</label>

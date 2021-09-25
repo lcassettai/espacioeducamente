@@ -3,7 +3,8 @@
 @section('title', 'Prestaciones')
 
 @section('content_header')
-    <h1>Tratamiento de <b>{{$tratamiento->paciente->persona->apellido . ' ' . $tratamiento->paciente->persona->nombre}}</b></h1>
+    <h1>Tratamiento de
+        <b>{{ $tratamiento->paciente->persona->apellido . ' ' . $tratamiento->paciente->persona->nombre }}</b></h1>
     <br>
     <h3>Listado de prestaciones</h3>
 @stop
@@ -12,15 +13,23 @@
     <div class="row">
         @foreach ($prestaciones as $p)
             <div class="col-md-3">
-                <div class="card">
-                    <div class="card-header text-center" style="background-color: #0F6370"> 
-                      
+                <div class="card card-widget widget-user">
+                    <!-- Add the bg color to the header using any of the bg-* classes -->
+                    <div class="widget-user-header bg-info">
+                        <h3 class="widget-user-username">{{ $p->prestador->persona->apellido }}</h3>
+                        <h5 class="widget-user-desc">{{ $p->servicio->servicio }}</h5>
                     </div>
-                    <div class="card-body text-center">
-                        <h4>  {{$p->servicio->servicio}}<h4>
-                        <p>{{$p->prestador->persona->apellido}}</p>
-                        <br>
-                        <a href="{{route('prestaciones.show',$p->id)}}" class="btn btn-info btn-block">Ver</a>
+                    <div class="widget-user-image">
+                        @if (empty($p->prestador->persona->imagen_perfil))
+                            <img class="img-circle elevation-2" src="{{ asset('img/user.png') }}"
+                                alt="User profile picture" width="300" height="300">
+                        @else
+                            <img class="img-circle elevation-2" src="{{ asset($p->prestador->persona->imagen_perfil) }}"
+                                alt="User profile picture" width="300" height="300">
+                        @endif
+                    </div>
+                    <div class="card-footer">
+                        <a href="{{ route('prestaciones.show', $p->id) }}" class="btn btn-block"  style="background-color:#0a616f;color:#fff">Ver prestación</a>
                     </div>
                 </div>
             </div>

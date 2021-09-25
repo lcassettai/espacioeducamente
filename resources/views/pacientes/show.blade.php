@@ -14,8 +14,15 @@
         <div class="col-md-3">
             <div class="card card-info">
                 <div class="card-header card-info text-center">
-                    <img class="profile-user-img img-fluid img-circle" src="{{ asset('img/user.png') }}"
-                        alt="User profile picture" width="300" height="300">
+                    @if (empty($paciente->persona->imagen_perfil))
+                        <img class="profile-user-img img-fluid img-circle" src="{{ asset('img/user.png') }}"
+                            alt="User profile picture" width="300" height="300">
+                    @else
+                        <img class="profile-user-img img-fluid img-circle"
+                            src="{{ asset($paciente->persona->imagen_perfil) }}" alt="User profile picture" width="300"
+                            height="300">
+                    @endif
+
                     <h3>{{ $paciente->persona->nombre }}
                         {{ $paciente->persona->apellido }}</h3>
                     <p class="text-white text-center">Paciente</p>
@@ -137,10 +144,12 @@
                                                 <tr>
                                                     <td>{{ $i }}.</td>
                                                     <td>{{ date('d/m/Y', strtotime($tratamiento->fecha_inicio)) }}</td>
-                                                    <td>{{ $tratamiento->prestador->persona->apellido . ' ' . $tratamiento->prestador->persona->nombre}}</td>
+                                                    <td>{{ $tratamiento->prestador->persona->apellido . ' ' . $tratamiento->prestador->persona->nombre }}
+                                                    </td>
                                                     <td>{{ $tratamiento->esta_activo ? 'SI' : 'NO' }}</td>
                                                     <td class="project-actions text-right">
-                                                        <a class="btn btn-primary btn-sm" href="{{route('prestaciones.list',$tratamiento->id)}}">
+                                                        <a class="btn btn-primary btn-sm"
+                                                            href="{{ route('prestaciones.list', $tratamiento->id) }}">
                                                             <i class="fas fa-eye">
                                                             </i>
                                                         </a>

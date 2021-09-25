@@ -16,8 +16,14 @@
         <div class="col-md-3">
             <div class="card card-info">
                 <div class="card-header card-info text-center">
-                    <img class="profile-user-img img-fluid img-circle" src="{{ asset('img/user.png') }}"
-                        alt="User profile picture" width="300" height="300">
+                     @if (empty($prestacion->tratamiento->paciente->persona->imagen_perfil))
+                        <img class="profile-user-img img-fluid img-circle" src="{{ asset('img/user.png') }}"
+                            alt="User profile picture" width="300" height="300">
+                    @else
+                        <img class="profile-user-img img-fluid img-circle"
+                            src="{{ asset($prestacion->tratamiento->paciente->persona->imagen_perfil) }}" alt="User profile picture" width="300"
+                            height="300">
+                    @endif
                     <h3>{{ $prestacion->tratamiento->paciente->persona->nombre }}
                         {{ $prestacion->tratamiento->paciente->persona->apellido }}</h3>
                     <p class="text-white text-center">Paciente</p>

@@ -26,6 +26,7 @@ class CreatePersonasTable extends Migration
             $table->date('fecha_nacimiento');
             $table->boolean('esta_activo');
             $table->char('genero_sigla',2);
+            $table->string('imagen_perfil')->nullable();
 
             $table->foreign('genero_sigla')->references('sigla')->on('generos');
         });
