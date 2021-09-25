@@ -72,18 +72,20 @@
                             <a href="{{ route('sesiones.create', $prestacion->id) }}" class="btn btn-info"><i
                                     class="far fa-file-alt"></i> Nueva sesion</a>
                             <br><br>
-                            <table class="table table-striped">
+                            <table class="table table-striped table-sm">
                                 <thead>
                                     <tr>
-                                        <th style="width: 20px">Fecha</th>
-                                        <th>Objetivos cumplidos</th>
+                                        <th style="width: 20px">#</th>
+                                        <th>Fecha</th>
                                         <th></th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>23/11/1991</td>
-                                        <td>SI / NO</td>
+                                    @php ($i = 1)
+                                    @foreach($sesiones as $sesion)
+                                        <tr>
+                                        <td><strong>{{$i}}</strong></td>
+                                         <td>{{date('d/m/Y',strtotime($sesion->fecha))}}</td>
                                         <td class="project-actions text-right">
                                             <a class="btn btn-primary btn-sm" href="#">
                                                 <i class="fas fa-eye">
@@ -99,6 +101,8 @@
                                             </a>
                                         </td>
                                     </tr>
+                                    @php ($i++)
+                                    @endforeach
                                 </tbody>
                             </table>
                         </div>
