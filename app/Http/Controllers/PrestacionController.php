@@ -41,7 +41,7 @@ class PrestacionController extends Controller
         $prestacion = Prestacion::find($id);
         
         $informes = Informe::all()->where('prestacion_id',$id);
-        $sesiones = Sesion::all()->where('prestacion_id', $id);
+        $sesiones = Sesion::where('prestacion_id', $id)->orderBy('fecha','desc')->paginate(10);
 
         /*
        $prestacion =   Prestacion::select()

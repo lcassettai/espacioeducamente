@@ -30,7 +30,7 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
                                 </div>
-                                <input type="date" class="form-control" id="fecha" name="fecha">
+                                <input type="date" class="form-control" id="fecha" name="fecha" value="{{old('fecha')}}">
                             </div>
                             @error('fecha')
                                 <small class="text-danger">{{ $message }}</small>
@@ -78,7 +78,7 @@
 
                         <div class="form-group">
                             <label for="summernote">Observaciones</label>
-                            <textarea class="form-control" name="observaciones" id="summernote"></textarea>
+                            <textarea class="form-control" name="observaciones" id="summernote">{{old('observaciones')}}</textarea>
                         </div>
                     </div>
                     <div class="card-footer">

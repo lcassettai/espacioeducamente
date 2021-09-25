@@ -59,8 +59,8 @@
             <div class="card card-info card-outline">
                 <div class="card-header p-2">
                     <ul class="nav nav-pills">
-                        <li class="nav-item"><a class="nav-link active" href="#sesiones"
-                                data-toggle="tab">Sesiones diarias</a>
+                        <li class="nav-item"><a class="nav-link active" href="#sesiones" data-toggle="tab">Sesiones
+                                diarias</a>
                         </li>
                         <li class="nav-item"><a class="nav-link" href="#informes" data-toggle="tab">Informes</a>
                         </li>
@@ -77,34 +77,63 @@
                                     <tr>
                                         <th style="width: 20px">#</th>
                                         <th>Fecha</th>
+                                        <th>Como estuvo la sesion?</th>
                                         <th></th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @php ($i = 1)
-                                    @foreach($sesiones as $sesion)
+                                    @php($i = 1)
+                                    @foreach ($sesiones as $sesion)
                                         <tr>
-                                        <td><strong>{{$i}}</strong></td>
-                                         <td>{{date('d/m/Y',strtotime($sesion->fecha))}}</td>
-                                        <td class="project-actions text-right">
-                                            <a class="btn btn-primary btn-sm" href="#">
-                                                <i class="fas fa-eye">
-                                                </i>
-                                            </a>
-                                            <a class="btn btn-info btn-sm" href="#">
-                                                <i class="fas fa-pencil-alt">
-                                                </i>
-                                            </a>
-                                            <a class="btn btn-danger btn-sm" href="#">
-                                                <i class="fas fa-trash">
-                                                </i>
-                                            </a>
-                                        </td>
-                                    </tr>
-                                    @php ($i++)
+                                            <td><strong>{{ $i }}</strong></td>
+                                            <td>{{ date('d/m/Y', strtotime($sesion->fecha)) }}</td>
+                                            <td>@switch($sesion->evaluacion)
+                                                    @case(1)
+                                                        <span class="badge bg-danger">Muy mala</span>
+                                                    @break
+
+                                                    @case(2)
+                                                        <span class="badge bg-warning">Mala</span>
+                                                    @break
+
+                                                    @case(3)
+                                                        <span class="badge bg-primary">Indistinto</span>
+                                                    @break
+
+                                                    @case(4)
+                                                        <span class="badge bg-info">Buena</span>
+                                                    @break
+
+                                                    @case(5)
+                                                        <span class="badge bg-success">Excelente</span>
+                                                    @break
+
+                                                    @default
+                                                        Default case...
+                                                @endswitch
+                                            </td>
+                                            <td class="project-actions text-right">
+                                                <a class="btn btn-primary btn-sm" href="#">
+                                                    <i class="fas fa-eye">
+                                                    </i>
+                                                </a>
+                                                <a class="btn btn-info btn-sm" href="#">
+                                                    <i class="fas fa-pencil-alt">
+                                                    </i>
+                                                </a>
+                                                <a class="btn btn-danger btn-sm" href="#">
+                                                    <i class="fas fa-trash">
+                                                    </i>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                        @php($i++)
                                     @endforeach
                                 </tbody>
                             </table>
+                            <div class="">
+                                {{$sesiones->links()}}
+                            </div>
                         </div>
                         <div class="tab-pane" id="informes">
                             <a href="{{ route('informes.create', $prestacion->id) }}" class="btn btn-info"><i
@@ -112,17 +141,20 @@
                                 informe</a>
                             <br><br>
                             <div class="table-responsive">
-                                <table class="table table-striped">
+                                <table class="table table-striped  table-sm">
                                     <thead>
                                         <tr>
+                                            <th style="width: 20px">#</th>
                                             <th style="width: 20px">Fecha</th>
                                             <th>Titulo</th>
                                             <th class="text-right">Opciones</th>
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        @php($i = 1)
                                         @foreach ($informes as $informe)
                                             <tr>
+                                                <td>{{$i}}</td>
                                                 <td>{{ date('d/m/Y', strtotime($informe->fecha)) }}</td>
                                                 <td>{{ $informe->titulo }}</td>
                                                 <td class="project-actions text-right">
@@ -145,6 +177,7 @@
                                                     </form>
                                                 </td>
                                             </tr>
+                                            @php($i++)
                                         @endforeach
                                     </tbody>
                                 </table>
