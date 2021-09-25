@@ -89,6 +89,9 @@ class SesionController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $sesion = Sesion::findOrFail($id);
+        $sesion->delete();
+
+        return redirect()->route('prestaciones.show', $sesion->prestacion_id);
     }
 }

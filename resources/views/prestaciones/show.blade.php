@@ -117,14 +117,17 @@
                                                     <i class="fas fa-eye">
                                                     </i>
                                                 </a>
-                                                <a class="btn btn-info btn-sm" href="{{route('sesiones.edit',$sesion)}}">
+                                                <a class="btn btn-info btn-sm" href="{{ route('sesiones.edit', $sesion) }}">
                                                     <i class="fas fa-pencil-alt">
                                                     </i>
                                                 </a>
-                                                <a class="btn btn-danger btn-sm" href="#">
-                                                    <i class="fas fa-trash">
-                                                    </i>
-                                                </a>
+                                                <form method="POST" action="{{ route('sesiones.destroy', $sesion->id) }}"
+                                                    class="d-inline form-eliminar">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button class="btn btn-danger btn-sm"> <i class="fas fa-trash">
+                                                        </i></button>
+                                                </form>
                                             </td>
                                         </tr>
                                         @php($i++)
@@ -132,65 +135,67 @@
                                 </tbody>
                             </table>
                             <div class="">
-                                {{$sesiones->links()}}
+                                {{ $sesiones->links() }}
                             </div>
                         </div>
-                        <div class="tab-pane" id="informes">
-                            <a href="{{ route('informes.create', $prestacion->id) }}" class="btn btn-info"><i
-                                    class="far fa-file-alt"></i> Nuevo
-                                informe</a>
-                            <br><br>
-                            <div class="table-responsive">
-                                <table class="table table-striped  table-sm">
-                                    <thead>
-                                        <tr>
-                                            <th style="width: 20px">#</th>
-                                            <th style="width: 20px">Fecha</th>
-                                            <th>Titulo</th>
-                                            <th class="text-right">Opciones</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @php($i = 1)
-                                        @foreach ($informes as $informe)
+                        <div class="
+                                tab-pane" id="informes">
+                                <a href="{{ route('informes.create', $prestacion->id) }}" class="btn btn-info"><i
+                                        class="far fa-file-alt"></i> Nuevo
+                                    informe</a>
+                                <br><br>
+                                <div class="table-responsive">
+                                    <table class="table table-striped  table-sm">
+                                        <thead>
                                             <tr>
-                                                <td>{{$i}}</td>
-                                                <td>{{ date('d/m/Y', strtotime($informe->fecha)) }}</td>
-                                                <td>{{ $informe->titulo }}</td>
-                                                <td class="project-actions text-right">
-                                                    <a class="btn btn-primary btn-sm" href="">
-                                                        <i class="fas fa-eye">
-                                                        </i>
-                                                    </a>
-                                                    <a class="btn btn-info btn-sm"
-                                                        href="{{ route('informes.edit', $informe) }}">
-                                                        <i class="fas fa-pencil-alt">
-                                                        </i>
-                                                    </a>
-                                                    <form method="POST"
-                                                        action="{{ route('informes.destroy', $informe) }}"
-                                                        class="d-inline form-eliminar">
-                                                        @csrf
-                                                        @method('DELETE')
-                                                        <button class="btn btn-danger btn-sm"> <i class="fas fa-trash">
-                                                            </i></button>
-                                                    </form>
-                                                </td>
+                                                <th style="width: 20px">#</th>
+                                                <th style="width: 20px">Fecha</th>
+                                                <th>Titulo</th>
+                                                <th class="text-right">Opciones</th>
                                             </tr>
-                                            @php($i++)
-                                        @endforeach
-                                    </tbody>
-                                </table>
+                                        </thead>
+                                        <tbody>
+                                            @php($i = 1)
+                                            @foreach ($informes as $informe)
+                                                <tr>
+                                                    <td>{{ $i }}</td>
+                                                    <td>{{ date('d/m/Y', strtotime($informe->fecha)) }}</td>
+                                                    <td>{{ $informe->titulo }}</td>
+                                                    <td class="project-actions text-right">
+                                                        <a class="btn btn-primary btn-sm" href="">
+                                                            <i class="fas fa-eye">
+                                                            </i>
+                                                        </a>
+                                                        <a class="btn btn-info btn-sm"
+                                                            href="{{ route('informes.edit', $informe) }}">
+                                                            <i class="fas fa-pencil-alt">
+                                                            </i>
+                                                        </a>
+                                                        <form method="POST"
+                                                            action="{{ route('informes.destroy', $informe) }}"
+                                                            class="d-inline form-eliminar">
+                                                            @csrf
+                                                            @method('DELETE')
+                                                            <button class="btn btn-danger btn-sm"> <i
+                                                                    class="fas fa-trash">
+                                                                </i></button>
+                                                        </form>
+                                                    </td>
+                                                </tr>
+                                                @php($i++)
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
+                            <!-- /.tab-pane -->
                         </div>
-                        <!-- /.tab-pane -->
-                    </div>
-                    <!-- /.tab-content -->
-                </div><!-- /.card-body -->
+                        <!-- /.tab-content -->
+                    </div><!-- /.card-body -->
+                </div>
+                <!-- /.nav-tabs-custom -->
             </div>
-            <!-- /.nav-tabs-custom -->
         </div>
-    </div>
     </div>
 @stop
 
@@ -212,7 +217,7 @@
 
             Swal.fire({
                 title: '¿Estas seguro?',
-                text: "Se va a borrar este informe de manera permanente",
+                text: "Esto se borrara de manera permanente!",
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#66bb6a',
