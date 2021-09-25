@@ -8,6 +8,7 @@ use App\Models\Genero;
 use App\Models\Paciente;
 use App\Models\Telefono;
 use App\Models\Prestador;
+use App\Models\User;
 
 class Persona extends Model
 {
@@ -32,11 +33,6 @@ class Persona extends Model
        return $this->hasOne(Genero::class, 'sigla','genero_sigla');
     }
 
-    public function usuario()
-    {
-        return $this->hasOne(Usuario::class);
-    }
-
     public function telefonos(){
         return $this->hasMany(Telefono::class);
     }
@@ -48,5 +44,9 @@ class Persona extends Model
     public function prestadores()
     {
         return $this->hasMany(Prestador::class);
+    }
+
+    public function user(){
+        return $this->hasOne(User::class);
     }
 }

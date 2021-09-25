@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\DB;
 use App\Models\{Persona,Paciente,Genero,Diagnostico};
 use App\Http\Requests\StorePaciente;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Auth;
 
 class PacienteController extends Controller
 {
@@ -37,7 +38,7 @@ class PacienteController extends Controller
         
         $datos['esta_activo'] = $request->has('esta_activo');
         $datos['tiene_cud'] = $request->has('tiene_cud');
-        $datos['prestador_id'] = 1; //harcoded TODO prestador logueado
+        $datos['prestador_id'] = Auth::user()->persona->prestadores[0]->id; //Ver si hay una mejor manera
 
         //Si cargo una foto de perfil la subimos al servidor
         if($request->hasFile('imagen_perfil')){

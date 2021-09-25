@@ -23,11 +23,11 @@ class PersonaFactory extends Factory
     public function definition()
     {
         return [
-            'nombre' => $this->faker->name(),
-            'apellido' => $this->faker->name(),
-            'cuit' => $this->faker->randomNumber(),
-            'documento' => $this->faker->randomNumber(),
-            'telefono' => $this->faker->randomNumber(),
+            'nombre' => 'Luciano',
+            'apellido' => 'Cassettai',
+            'cuit' => '',
+            'documento' => '35004172',
+            'telefono' => '3764902330',
             'fecha_nacimiento' => now(),
             'esta_activo' => true,
             'genero_sigla' => 'ma',

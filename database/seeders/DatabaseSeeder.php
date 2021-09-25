@@ -15,6 +15,7 @@ class DatabaseSeeder extends Seeder
     {
         $this->call(GenerosSeeder::class);
         $this->call(ServicioSeeder::class);
-        \App\Models\Persona::factory(10)->create();
+        \App\Models\Persona::factory(1)->create();
+        \App\Models\User::factory(1)->create();
     }
 }
