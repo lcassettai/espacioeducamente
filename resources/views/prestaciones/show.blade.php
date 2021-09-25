@@ -60,7 +60,7 @@
                 <div class="card-header p-2">
                     <ul class="nav nav-pills">
                         <li class="nav-item"><a class="nav-link active" href="#sesiones"
-                                data-toggle="tab">Sesiones</a>
+                                data-toggle="tab">Sesiones diarias</a>
                         </li>
                         <li class="nav-item"><a class="nav-link" href="#informes" data-toggle="tab">Informes</a>
                         </li>
@@ -69,6 +69,9 @@
                 <div class="card-body">
                     <div class="tab-content">
                         <div class="active tab-pane" id="sesiones">
+                            <a href="{{ route('sesiones.create', $prestacion->id) }}" class="btn btn-info"><i
+                                    class="far fa-file-alt"></i> Nueva sesion</a>
+                            <br><br>
                             <table class="table table-striped">
                                 <thead>
                                     <tr>

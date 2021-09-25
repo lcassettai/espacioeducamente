@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\{Informe,Tratamiento,Prestador,Servicio};
+use App\Models\{Informe,Tratamiento,Prestador,Servicio,Sesion};
 
 class Prestacion extends Model
 {
@@ -24,6 +24,11 @@ class Prestacion extends Model
     
     public function informes(){
         return $this->hasMany(Informe::class);
+    }
+
+    public function sesiones()
+    {
+        return $this->hasMany(Sesion::class);
     }
 
     public function tratamiento(){

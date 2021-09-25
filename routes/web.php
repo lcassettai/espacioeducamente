@@ -10,6 +10,7 @@ use App\Http\Controllers\PrestadorController;
 use App\Http\Controllers\ServicioController;
 use App\Http\Controllers\TratamientoController;
 use App\Http\Controllers\PrestacionController;
+use App\Http\Controllers\SesionController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -31,6 +32,9 @@ Route::resource('servicios', ServicioController::class);
 Route::resource('generos', GeneroController::class);
 Route::resource('prestadores', PrestadorController::class);
 Route::resource('tratamientos', TratamientoController::class);
+
+Route::get('sesiones/{prestacion}/create', [SesionController::class, 'create'])->name('sesiones.create');
+Route::resource('sesiones', SesionController::class)->except(['create']);;
 
 Route::get('informes/{prestacion}/create', [InformeController::class, 'create'])->name('informes.create');
 Route::resource('informes', InformeController::class)->except(['create']);
