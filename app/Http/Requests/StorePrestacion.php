@@ -28,7 +28,7 @@ class StorePrestacion extends FormRequest
             'prestador_id' => 'required|numeric',
             'tratamiento_id' => 'required|numeric',
             'fecha_alta' => 'required|date',
-            'sesiones_asignadas' => 'required|numeric',
+            'sesiones_asignadas' => 'nullable|numeric',
         ];
     }
 }
