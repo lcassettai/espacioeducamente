@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use App\Models\{Persona,Paciente,Genero,Diagnostico};
+use App\Models\{Persona,Paciente,Genero,Prestrado,Prestador};
 use App\Http\Requests\StorePaciente;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
@@ -68,6 +68,9 @@ class PacienteController extends Controller
     }
 
     public function show(Paciente $paciente){
-        return view('pacientes.show',compact('paciente'));
+        $soyCreador = Prestador::soyCreador($paciente->prestador_id);
+        
+
+        return view('pacientes.show',compact('paciente'))->with('soyCreador',$soyCreador);
     }
 }

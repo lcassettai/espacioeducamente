@@ -7,6 +7,7 @@ use App\Models\Prestacion;
 use App\Models\Tratamiento;
 use App\Models\Informe;
 use App\Models\Sesion;
+use App\Models\Prestador;
 use App\Http\Requests\StorePrestacion;
 
 class PrestacionController extends Controller
@@ -39,6 +40,7 @@ class PrestacionController extends Controller
 
     public function show($id){
         $prestacion = Prestacion::find($id);
+        $prestacion['soyCreador'] = Prestador::soyCreador($prestacion->prestador_id);
         
         $informes = Informe::all()->where('prestacion_id',$id);
         $sesiones = Sesion::where('prestacion_id', $id)->orderBy('fecha','desc')->paginate(10);

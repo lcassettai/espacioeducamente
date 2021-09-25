@@ -16,13 +16,13 @@
         <div class="col-md-3">
             <div class="card card-info">
                 <div class="card-header card-info text-center">
-                     @if (empty($prestacion->tratamiento->paciente->persona->imagen_perfil))
+                    @if (empty($prestacion->tratamiento->paciente->persona->imagen_perfil))
                         <img class="profile-user-img img-fluid img-circle" src="{{ asset('img/user.png') }}"
                             alt="User profile picture" width="300" height="300">
                     @else
                         <img class="profile-user-img img-fluid img-circle"
-                            src="{{ asset($prestacion->tratamiento->paciente->persona->imagen_perfil) }}" alt="User profile picture" width="300"
-                            height="300">
+                            src="{{ asset($prestacion->tratamiento->paciente->persona->imagen_perfil) }}"
+                            alt="User profile picture" width="300" height="300">
                     @endif
                     <h3>{{ $prestacion->tratamiento->paciente->persona->nombre }}
                         {{ $prestacion->tratamiento->paciente->persona->apellido }}</h3>
@@ -67,9 +67,11 @@
                 <div class="card-body">
                     <div class="tab-content">
                         <div class="active tab-pane" id="sesiones">
-                            <a href="{{ route('sesiones.create', $prestacion->id) }}" class="btn btn-info"><i
-                                    class="far fa-file-alt"></i> Nueva sesion</a>
-                            <br><br>
+                            @if ($prestacion->soyCreador)
+                                <a href="{{ route('sesiones.create', $prestacion->id) }}" class="btn btn-info"><i
+                                        class="far fa-file-alt"></i> Nueva sesion</a>
+                                <br><br>
+                            @endif
                             <table class="table table-striped table-sm">
                                 <thead>
                                     <tr>
@@ -115,7 +117,8 @@
                                                     <i class="fas fa-eye">
                                                     </i>
                                                 </a>
-                                                <a class="btn btn-info btn-sm" href="{{ route('sesiones.edit', $sesion) }}">
+                                                <a class="btn btn-info btn-sm"
+                                                    href="{{ route('sesiones.edit', $sesion) }}">
                                                     <i class="fas fa-pencil-alt">
                                                     </i>
                                                 </a>
@@ -136,12 +139,13 @@
                                 {{ $sesiones->links() }}
                             </div>
                         </div>
-                        <div class="
-                                tab-pane" id="informes">
-                                <a href="{{ route('informes.create', $prestacion->id) }}" class="btn btn-info"><i
-                                        class="far fa-file-alt"></i> Nuevo
-                                    informe</a>
-                                <br><br>
+                        <div class="tab-pane" id="informes">
+                                @if ($prestacion->soyCreador)
+                                    <a href="{{ route('informes.create', $prestacion->id) }}" class="btn btn-info"><i
+                                            class="far fa-file-alt"></i> Nuevo
+                                        informe</a>
+                                    <br><br>
+                                @endif
                                 <div class="table-responsive">
                                     <table class="table table-striped  table-sm">
                                         <thead>

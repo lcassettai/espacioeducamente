@@ -32,7 +32,10 @@
                         </div>
                         <br>
                         <a href="{{ route('prestaciones.list', $t->id) }}" class="btn btn-info btn-block">Ver</a>
-                        <a href="{{ route('tratamientos.show', $t->id) }}" class="btn btn-info btn-block">Administrar</a>
+                        @if ($t->soyCreador)
+                            <a href="{{ route('tratamientos.show', $t->id) }}"
+                                class="btn btn-info btn-block">Administrar</a>
+                        @endif
                     </div>
                 </div>
             </div>

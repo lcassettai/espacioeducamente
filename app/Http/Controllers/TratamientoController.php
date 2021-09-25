@@ -20,8 +20,12 @@ class TratamientoController extends Controller
     public function index()
     {
         $tratamientos =  Tratamiento::all();
+
+        foreach ($tratamientos as $index => $tratamiento) {
+            $tratamiento['soyCreador'] = Prestador::soyCreador($tratamiento->prestador_id);
+        }
         
-        return view('tratamientos.index',compact('tratamientos'));
+        return view('tratamientos.index', compact('tratamientos'));
     }
 
     /**
@@ -32,16 +36,16 @@ class TratamientoController extends Controller
     public function create()
     {
         $prestadores = Prestador::join('personas', 'prestadores.persona_id', 'personas.id')
-        ->where('esta_activo', true)
-        ->orderBy('apellido', 'desc')
-        ->select('personas.*', 'prestadores.*')
-        ->get();   
+            ->where('esta_activo', true)
+            ->orderBy('apellido', 'desc')
+            ->select('personas.*', 'prestadores.*')
+            ->get();
 
-         $pacientes = Paciente::join('personas', 'pacientes.persona_id','personas.id')
-        ->where('esta_activo',true)
-        ->orderBy('apellido','desc')
-        ->select('personas.*','pacientes.*')
-        ->get();
+        $pacientes = Paciente::join('personas', 'pacientes.persona_id', 'personas.id')
+            ->where('esta_activo', true)
+            ->orderBy('apellido', 'desc')
+            ->select('personas.*', 'pacientes.*')
+            ->get();
 
         return view('tratamientos.create')->with(compact('prestadores'))->with(compact('pacientes'));
     }
@@ -59,18 +63,18 @@ class TratamientoController extends Controller
             ->where('paciente_id', $request->paciente_id)
             ->first();
 
-        if(!empty($tratamiento_activo)){
+        if (!empty($tratamiento_activo)) {
             $error = ['tratamiento_activo' => 'Existe un tratamiento activo para el paciente seleccionado'];
             return redirect()->route('tratamientos.create')->withErrors($error)->withInput();
         }
-        
+
         $datos = $request->all();
-        
+
         $datos['esta_activo'] = $request->has('esta_activo');
 
         $tratamiento = Tratamiento::create($datos);
 
-        return redirect()->route('tratamientos.show',$tratamiento)->with('create', 'ok');
+        return redirect()->route('tratamientos.show', $tratamiento)->with('create', 'ok');
     }
 
     /**
@@ -84,14 +88,14 @@ class TratamientoController extends Controller
         $servicios = Servicio::all();
 
         $prestaciones = Prestacion::join('tratamientos', 'tratamientos.id', 'prestaciones.tratamiento_id')
-        ->where('tratamiento_id', $tratamiento->id)
+            ->where('tratamiento_id', $tratamiento->id)
             ->get();
 
         $prestadores = Prestador::join('personas', 'prestadores.persona_id', 'personas.id')
-        ->where('esta_activo', true)
-        ->orderBy('apellido', 'desc')
-        ->select('personas.*', 'prestadores.*')
-        ->get();
+            ->where('esta_activo', true)
+            ->orderBy('apellido', 'desc')
+            ->select('personas.*', 'prestadores.*')
+            ->get();
 
         return view('tratamientos.show', compact('tratamiento'))->with(compact('prestadores'))->with(compact('servicios'))->with(compact('prestaciones'));
     }

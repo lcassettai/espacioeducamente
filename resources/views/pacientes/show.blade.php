@@ -65,8 +65,10 @@
 
                     </ul>
                     <br>
+                    @if($soyCreador)
                     <a href="{{ route('pacientes.edit', $paciente->id) }}"
                         class="btn btn-info btn-block"><b>Editar</b></a>
+                    @endif
                 </div>
                 <!--Info del paciente -->
 
@@ -90,10 +92,12 @@
                     <div class="tab-content">
                         <div class="active tab-pane" id="diagnostico">
                             <div class="pt-2 pb-2 ">
+                                @if($soyCreador)
                                 <button type="button" class="btn btn-success" data-toggle="modal"
                                     data-target="#exampleModal">
                                     <i class="far fa-file-alt"></i> Nuevo diagnostico
                                 </button>
+                                @endif
                             </div>
 
                             <div id="accordion">
