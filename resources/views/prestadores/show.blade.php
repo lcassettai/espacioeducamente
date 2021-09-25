@@ -14,8 +14,14 @@
         <div class="col-md-3">
             <div class="card card-info">
                 <div class="card-header card-info text-center">
-                    <img class="profile-user-img img-fluid img-circle" src="{{ asset('img/user.png') }}"
-                        alt="User profile picture" width="300" height="300">
+                    @if (empty($prestador->persona->imagen_perfil))
+                        <img class="profile-user-img img-fluid img-circle" src="{{ asset('img/user.png') }}"
+                            alt="User profile picture" width="300" height="300">
+                    @else
+                        <img class="profile-user-img img-fluid img-circle"
+                            src="{{ asset($prestador->persona->imagen_perfil) }}" alt="User profile picture" width="300"
+                            height="300">
+                    @endif
                     <h3>{{ $prestador->persona->nombre }}
                         {{ $prestador->persona->apellido }}</h3>
                     <p class="text-white text-center">Prestador</p>
@@ -46,8 +52,7 @@
                         @endif
                         @if ($prestador->persona->email)
                             <li class="list-group-item">
-                                <b>Email: </b> <span
-                                    class="float-right">{{$prestador->persona->email}}</span>
+                                <b>Email: </b> <span class="float-right">{{ $prestador->persona->email }}</span>
                             </li>
                         @endif
 
@@ -69,7 +74,8 @@
                     <ul class="nav nav-pills">
                         <li class="nav-item"><a class="nav-link active" href="#diagnostico"
                                 data-toggle="tab">Diagnostico</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#tratamientos" data-toggle="tab">Tratamientos</a>
+                        <li class="nav-item"><a class="nav-link" href="#tratamientos"
+                                data-toggle="tab">Tratamientos</a>
                         </li>
                         <li class="nav-item"><a class="nav-link" href="#usuario" data-toggle="tab">Usuario</a>
                         </li>

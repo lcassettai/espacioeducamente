@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StorePrestador;
 use Illuminate\Http\Request;
 use App\Models\{Prestador,Genero,Persona};
+use Illuminate\Support\Facades\Storage;
 
 class PrestadorController extends Controller
 {
@@ -47,6 +48,12 @@ class PrestadorController extends Controller
         $datos = $request->all();
 
         $datos['esta_activo'] = $request->has('esta_activo');
+
+        //Si cargo una foto de perfil la subimos al servidor
+        if ($request->hasFile('imagen_perfil')) {
+            $archivo = $request->file('imagen_perfil')->store('public/perfil');
+            $datos['imagen_perfil'] = Storage::url($archivo);
+        }
 
         //$persona = Persona::create($datos);
         Persona::create($datos)->prestadores()->create($datos);
