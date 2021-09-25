@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Prestacion;
 use App\Models\Tratamiento;
 use App\Models\Informe;
+use App\Models\Sesion;
 use App\Http\Requests\StorePrestacion;
 
 class PrestacionController extends Controller
@@ -40,6 +41,7 @@ class PrestacionController extends Controller
         $prestacion = Prestacion::find($id);
         
         $informes = Informe::all()->where('prestacion_id',$id);
+        $sesiones = Sesion::where('prestacion_id', $id)->orderBy('fecha','desc')->paginate(10);
 
         /*
        $prestacion =   Prestacion::select()
@@ -49,6 +51,6 @@ class PrestacionController extends Controller
                          ->where('prestaciones.id',$id)->first(); 
         */
 
-        return view('prestaciones.show',compact('prestacion'))->with(compact('informes'));
+        return view('prestaciones.show',compact('prestacion'))->with(compact('informes'))->with(compact('sesiones'));
     }
 }
