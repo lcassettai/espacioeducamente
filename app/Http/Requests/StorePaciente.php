@@ -31,7 +31,8 @@ class StorePaciente extends FormRequest
             'genero_sigla' => 'required|size:2',
             'cuit' => 'nullable|numeric|unique:personas,cuit',
             'email' => 'nullable|email|unique:personas,email',
-            'telefono' => 'nullable|numeric'
+            'telefono' => 'nullable|numeric',
+            'imagen_perfil' => 'mimes:jpg,bmp,png'
         ];
     }
 }

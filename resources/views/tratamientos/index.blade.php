@@ -16,15 +16,19 @@
         @foreach ($tratamientos as $t)
             <div class="col-md-3">
                 <div class="card">
-                    <div class="card-header text-center bg-secondary">
-                        <img class="profile-user-img img-fluid img-circle" src="{{ asset('img/user.png') }}"
-                            alt="User profile picture" width="300" height="300">
+                    <div class="card-header text-center" style="background-color:#0a616f">
+                        @if (empty($t->paciente->persona->imagen_perfil))
+                            <img class="profile-user-img img-fluid img-circle" src="{{ asset('img/user.png') }}"
+                                alt="User profile picture" width="300" height="300">
+                        @else
+                            <img class="profile-user-img img-fluid img-circle"
+                                src="{{ asset($t->paciente->persona->imagen_perfil) }}" alt="User profile picture"
+                                width="300" height="300">
+                        @endif
                     </div>
                     <div class="card-body">
                         <div class="text-center">
                             <h4>{{ $t->paciente->persona->apellido . ' ' . $t->paciente->persona->nombre }}<h4>
-                                    <p class="text-muted"><small> Iniciado el
-                                            {{ date('d/m/Y', strtotime($t->fecha_inicio)) }}</small></p>
                         </div>
                         <br>
                         <a href="{{ route('prestaciones.list', $t->id) }}" class="btn btn-info btn-block">Ver</a>

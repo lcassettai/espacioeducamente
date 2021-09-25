@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\{Persona,Paciente,Genero,Diagnostico};
 use App\Http\Requests\StorePaciente;
+use Illuminate\Support\Facades\Storage;
 
 class PacienteController extends Controller
 {
@@ -38,6 +39,12 @@ class PacienteController extends Controller
         $datos['tiene_cud'] = $request->has('tiene_cud');
         $datos['prestador_id'] = 1; //harcoded TODO prestador logueado
 
+        //Si cargo una foto de perfil la subimos al servidor
+        if($request->hasFile('imagen_perfil')){
+            $archivo = $request->file('imagen_perfil')->store('public/perfil');
+            $datos['imagen_perfil'] = Storage::url($archivo);
+        }
+
         //$persona = Persona::create($datos);
         Persona::create($datos)->pacientes()->create($datos);
         
@@ -60,7 +67,6 @@ class PacienteController extends Controller
     }
 
     public function show(Paciente $paciente){
-
         return view('pacientes.show',compact('paciente'));
     }
 }

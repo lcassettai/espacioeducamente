@@ -22,7 +22,8 @@ class Persona extends Model
         'email',
         'fecha_nacimiento', 
         'genero_sigla',
-        'telefono'
+        'telefono',
+        'imagen_perfil'
     ];
 
     public function genero(){
