@@ -127,6 +127,7 @@
                                             <tr>
                                                 <th style="width: 10px">#</th>
                                                 <th>Fecha de inicio</th>
+                                                <th>Coordinador/a</th>
                                                 <th>Esta activo</th>
                                             </tr>
                                         </thead>
@@ -136,6 +137,7 @@
                                                 <tr>
                                                     <td>{{ $i }}.</td>
                                                     <td>{{ date('d/m/Y', strtotime($tratamiento->fecha_inicio)) }}</td>
+                                                    <td>{{ $tratamiento->prestador->persona->apellido . ' ' . $tratamiento->prestador->persona->nombre}}</td>
                                                     <td>{{ $tratamiento->esta_activo ? 'SI' : 'NO' }}</td>
                                                     <td class="project-actions text-right">
                                                         <a class="btn btn-primary btn-sm" href="{{route('prestaciones.list',$tratamiento->id)}}">
