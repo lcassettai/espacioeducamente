@@ -72,7 +72,8 @@
                     <ul class="nav nav-pills">
                         <li class="nav-item"><a class="nav-link active" href="#diagnostico"
                                 data-toggle="tab">Diagnostico</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#tratamientos" data-toggle="tab">Tratamientos</a>
+                        <li class="nav-item"><a class="nav-link" href="#tratamientos"
+                                data-toggle="tab">Tratamientos</a>
                         </li>
                         <li class="nav-item"><a class="nav-link" href="#settings" data-toggle="tab">Contacto</a>
                         </li>
@@ -118,7 +119,38 @@
                             </div>
                         </div>
                         <div class="tab-pane" id="tratamientos">
-                            ...tratamiento
+                            <div class="card">
+                                <!-- /.card-header -->
+                                <div class="card-body p-0">
+                                    <table class="table table-sm table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th style="width: 10px">#</th>
+                                                <th>Fecha de inicio</th>
+                                                <th>Esta activo</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @php($i = 1)
+                                            @foreach ($paciente->tratamientos as $tratamiento)
+                                                <tr>
+                                                    <td>{{ $i }}.</td>
+                                                    <td>{{ date('d/m/Y', strtotime($tratamiento->fecha_inicio)) }}</td>
+                                                    <td>{{ $tratamiento->esta_activo ? 'SI' : 'NO' }}</td>
+                                                    <td class="project-actions text-right">
+                                                        <a class="btn btn-primary btn-sm" href="{{route('prestaciones.list',$tratamiento->id)}}">
+                                                            <i class="fas fa-eye">
+                                                            </i>
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                                @php($i++)
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <!-- /.card-body -->
+                            </div>
                         </div>
                         <!-- /.tab-pane -->
                     </div>
