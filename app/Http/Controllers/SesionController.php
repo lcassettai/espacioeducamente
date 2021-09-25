@@ -60,8 +60,10 @@ class SesionController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
-    {
-        //
+    {   
+        $sesion = Sesion::findOrFail($id);
+        
+        return view('sesiones.edit',compact('sesion'));
     }
 
     /**
@@ -71,9 +73,12 @@ class SesionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(StoreSesion $request, $id)
     {
-        //
+        $sesion = Sesion::findOrFail($id);
+        $sesion->update($request->all());
+        
+        return redirect()->route('prestaciones.show',$sesion->prestacion_id)->with('carga','ok');
     }
 
     /**

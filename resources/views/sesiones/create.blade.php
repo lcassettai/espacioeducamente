@@ -3,7 +3,7 @@
 @section('title', 'Sesiones')
 
 @section('content_header')
-    <h1>Nueva evaluacion de sesión diaria para 
+    <h1>Nueva evaluacion de sesión diaria para
         <strong>{{ $prestacion->tratamiento->paciente->persona->apellido . ' ' . $prestacion->tratamiento->paciente->persona->nombre }}</strong>
     </h1>
 @stop
@@ -30,7 +30,8 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
                                 </div>
-                                <input type="date" class="form-control" id="fecha" name="fecha" value="{{old('fecha')}}">
+                                <input type="date" class="form-control" id="fecha" name="fecha"
+                                    value="{{ old('fecha') }}">
                             </div>
                             @error('fecha')
                                 <small class="text-danger">{{ $message }}</small>
@@ -78,7 +79,8 @@
 
                         <div class="form-group">
                             <label for="summernote">Observaciones</label>
-                            <textarea class="form-control" name="observaciones" id="summernote">{{old('observaciones')}}</textarea>
+                            <textarea class="form-control" name="observaciones"
+                                id="summernote">{{ old('observaciones') }}</textarea>
                         </div>
                     </div>
                     <div class="card-footer">
@@ -95,21 +97,31 @@
 
 @section('js')
     <script>
-        $(document).ready(function() {
-
-            $('#summernote').summernote({
-                height: 250,
-                lang: 'es-ES',
-                toolbar: [
-                    // [groupName, [list of button]]
-                    ['style', ['bold', 'italic', 'underline', 'clear']],
-                    ['font', ['strikethrough']],
-                    ['fontsize', ['fontsize']],
-                    ['color', ['color']],
-                    ['para', ['ul', 'ol', 'paragraph']],
-                    ['height', ['height']]
-                ]
-            });
+        $('#summernote').summernote({
+            height: 250,
+            maximumImageFileSize: 500 * 1024, // 500 KB
+            callbacks: {
+                onImageUploadError: function(msg) {
+                    Swal.fire(
+                        'Opps!',
+                        'La imagen que intentas cargar supera los 500kb!',
+                        'error'
+                    )
+                }
+            },
+            lang: 'es-ES',
+            toolbar: [
+                // [groupName, [list of button]]
+                ['style', ['bold', 'italic', 'underline', 'clear']],
+                ['font', ['strikethrough']],
+                ['fontsize', ['fontsize']],
+                ['color', ['color']],
+                ['para', ['ul', 'ol', 'paragraph']],
+                ['height', ['height']]
+                ['table', ['table']],
+                ['insert', ['link', 'picture']],
+                ['view', ['fullscreen']]
+            ]
         });
     </script>
 @endsection

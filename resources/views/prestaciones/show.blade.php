@@ -117,7 +117,7 @@
                                                     <i class="fas fa-eye">
                                                     </i>
                                                 </a>
-                                                <a class="btn btn-info btn-sm" href="#">
+                                                <a class="btn btn-info btn-sm" href="{{route('sesiones.edit',$sesion)}}">
                                                     <i class="fas fa-pencil-alt">
                                                     </i>
                                                 </a>
