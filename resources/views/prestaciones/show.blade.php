@@ -25,14 +25,6 @@
                 <div class="card-body">
                     <ul class="list-group list-group-unbordered">
                         <li class="list-group-item">
-                            <b>Nombre: </b> <span
-                                class="float-right">{{ $prestacion->tratamiento->paciente->persona->nombre }}</span>
-                        </li>
-                        <li class="list-group-item">
-                            <b>Apellido: </b> <span
-                                class="float-right">{{ $prestacion->tratamiento->paciente->persona->apellido }}</span>
-                        </li>
-                        <li class="list-group-item">
                             <b>Inicio del tratamiento: </b> <span
                                 class="float-right">{{ date('d/m/Y', strtotime($prestacion->tratamiento->fecha_inicio)) }}</span>
                         </li>
