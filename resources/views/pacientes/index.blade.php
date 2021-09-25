@@ -38,7 +38,7 @@
                                     <td>{{ $p->nombre }}</td>
                                     <td>{{ $p->apellido }}</td>
                                     <td>{{ $p->documento }}</td>
-                                    <td>{{ $p->fecha_nacimiento }}</td>
+                                    <td>{{ date('d/m/Y',strtotime($p->fecha_nacimiento)) }}</td>
                                     <td>{{ ($p->tiene_cud) ? "SI":"NO" }}</td>
                                     <td>
                                         <a class="btn btn-info" href="{{route('pacientes.show',$p->id)}}"><i class="fas fa-eye"></i></a>
