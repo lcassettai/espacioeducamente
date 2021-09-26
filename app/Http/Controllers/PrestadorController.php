@@ -4,8 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StorePrestador;
 use Illuminate\Http\Request;
-use App\Models\{Prestador,Genero,Persona};
+use App\Models\{Prestador,Genero,Persona,User};
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Hash;
 
 class PrestadorController extends Controller
 {
@@ -106,5 +107,23 @@ class PrestadorController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function createUsuario(Request $request, Prestador $prestador){
+        $request->validate([
+            'email' => 'required|email',
+            'password' => 'required',
+            'passwordVerificacion' => 'required|same:password',
+        ]); 
+
+        $datos = $request->all();
+        $datos['name'] = $prestador->persona->apellido . ' ' . $prestador->persona->nombre;
+        $datos['persona_id'] = $prestador->persona_id;
+        $datos['password'] = Hash::make($request->password);
+
+     
+        User::create($datos);
+
+        return redirect()->route('prestadores.index')->with('create', 'ok');
     }
 }

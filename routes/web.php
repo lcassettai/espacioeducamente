@@ -39,8 +39,10 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('obras_sociales', ObraSocialController::class);
     Route::resource('servicios', ServicioController::class);
     Route::resource('generos', GeneroController::class);
-    Route::resource('prestadores', PrestadorController::class);
     Route::resource('tratamientos', TratamientoController::class);
+
+    Route::post('prestadores/{prestador}/crearUsuario', [PrestadorController::class, 'createUsuario'])->name('prestadores.createUsuario');
+    Route::resource('prestadores', PrestadorController::class);
 
     Route::get('sesiones/{prestacion}/create', [SesionController::class, 'create'])->name('sesiones.create');
     Route::resource('sesiones', SesionController::class)->except(['create']);;

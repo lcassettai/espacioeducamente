@@ -26,7 +26,6 @@ class StoreTratamiento extends FormRequest
         return [
             'fecha_inicio' => 'required|date',
             'paciente_id' => 'required|numeric',
-            'prestador_id' => 'required|numeric',
         ];
     }
 }

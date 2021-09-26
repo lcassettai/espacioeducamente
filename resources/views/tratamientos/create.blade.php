@@ -3,7 +3,7 @@
 @section('title', 'Tratamientos')
 
 @section('content_header')
-    <h1>Tratamientos</h1>
+    <h1>Nuevo tratamiento</h1>
 @stop
 
 @section('content')
@@ -27,22 +27,6 @@
                                     value={{ old('fecha_inicio') }}>
                             </div>
                             @error('fecha_inicio')
-                                <small class="text-danger">{{ $message }}</small>
-                            @enderror
-                        </div>
-
-                        <!-- Prestador -->
-                        <div class="form-group">
-                            <label for="prestador_id">Prestador coordinador del tratamiento</label>
-                            <select class="form-control" id="prestador_id" name="prestador_id">
-                                <option value=""> -- Seleccione -- </option>
-                                @foreach ($prestadores as $p)
-                                    <option 
-                                value="{{ $p->id }}">{{ $p->apellido . ' ' . $p->nombre . ' - ' . $p->documento }}
-                                </option>
-                                @endforeach
-                            </select>
-                            @error('prestador_id')
                                 <small class="text-danger">{{ $message }}</small>
                             @enderror
                         </div>

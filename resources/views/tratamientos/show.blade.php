@@ -140,7 +140,7 @@
                             </div>
                             <div class="card-footer">
                                 <a href={{ route('tratamientos.index') }} class="btn btn-danger">Cancelar</a>
-                                <button type="submit" class="btn btn-info float-right">Agregar prestacion</button>
+                                <button type="submit" class="btn btn-info float-right">Asignar prestación</button>
                             </div>
                         </form>
                     </div>

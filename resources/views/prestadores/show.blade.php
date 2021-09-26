@@ -87,15 +87,57 @@
                             diagnostico
                         </div>
                         <div class="tab-pane" id="usuario">
-                            usuario
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="card">
+                                        <form method="post" action="{{route('prestadores.createUsuario',$prestador->id)}}">
+                                            @csrf
+                                            <div class="card-body">
+                                                <div class="form-group">
+                                                    <label for="email">Email <span class="text-danger">*</span>
+                                                    </label>
+                                                    <input type="text" class="form-control" id="email" name="email"
+                                                        value={{ old('email') }}>
+                                                    <small class="text-muted">Este sera el email con el que va a inciar
+                                                        sesión</small>
+                                                    @error('email')
+                                                        <div class="text-danger"><small>{{$message}}</small></div>
+                                                    @enderror
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="password">Password <span class="text-danger">*</span>
+                                                    </label>
+                                                    <input type="password" class="form-control" id="password" name="password"
+                                                        value={{ old('password') }}>
+                                                    @error('password')
+                                                        <div class="text-danger"><small>{{$message}}</small></div>
+                                                    @enderror
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="password-verificar">Repertir password <span class="text-danger">*</span>
+                                                    </label>
+                                                    <input type="password" class="form-control"
+                                                        id="passwordVerificacion" name="passwordVerificacion">
+                                                    @error('passwordVerificacion')
+                                                        <div class="text-danger"><small>{{$message}}</small></div>
+                                                    @enderror
+                                                </div>
+                                          </div>
+                                        <div class="card-footer">
+                                            <button type="submit" class="btn btn-info float-right">Guardar</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
                         </div>
-                        <!-- /.tab-pane -->
                     </div>
-                    <!-- /.tab-content -->
-                </div><!-- /.card-body -->
-            </div>
-            <!-- /.nav-tabs-custom -->
+                    <!-- /.tab-pane -->
+                </div>
+                <!-- /.tab-content -->
+            </div><!-- /.card-body -->
         </div>
+        <!-- /.nav-tabs-custom -->
+    </div>
     </div>
 
 @stop

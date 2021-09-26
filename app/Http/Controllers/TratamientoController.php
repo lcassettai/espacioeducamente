@@ -9,6 +9,7 @@ use App\Models\Paciente;
 use App\Models\Prestacion;
 use App\Models\Tratamiento;
 use App\Models\Servicio;
+use Illuminate\Support\Facades\Auth;
 
 class TratamientoController extends Controller
 {
@@ -35,19 +36,13 @@ class TratamientoController extends Controller
      */
     public function create()
     {
-        $prestadores = Prestador::join('personas', 'prestadores.persona_id', 'personas.id')
-            ->where('esta_activo', true)
-            ->orderBy('apellido', 'desc')
-            ->select('personas.*', 'prestadores.*')
-            ->get();
-
         $pacientes = Paciente::join('personas', 'pacientes.persona_id', 'personas.id')
             ->where('esta_activo', true)
             ->orderBy('apellido', 'desc')
             ->select('personas.*', 'pacientes.*')
             ->get();
 
-        return view('tratamientos.create')->with(compact('prestadores'))->with(compact('pacientes'));
+        return view('tratamientos.create',compact('pacientes'));
     }
 
     /**
@@ -71,6 +66,7 @@ class TratamientoController extends Controller
         $datos = $request->all();
 
         $datos['esta_activo'] = $request->has('esta_activo');
+        $datos['prestador_id'] = Auth::user()->persona->prestadores[0]->id;
 
         $tratamiento = Tratamiento::create($datos);
 
