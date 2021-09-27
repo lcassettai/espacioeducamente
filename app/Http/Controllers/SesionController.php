@@ -50,7 +50,8 @@ class SesionController extends Controller
      */
     public function show($id)
     {
-        //
+        $sesion = Sesion::find($id);
+        return view('sesiones.show',compact('sesion'));
     }
 
     /**

@@ -113,22 +113,26 @@
                                                 @endswitch
                                             </td>
                                             <td class="project-actions text-right">
-                                                <a class="btn btn-primary btn-sm" href="#">
+                                                <a class="btn btn-primary btn-sm"
+                                                    href="{{ route('sesiones.show', $sesion) }}">
                                                     <i class="fas fa-eye">
                                                     </i>
                                                 </a>
-                                                <a class="btn btn-info btn-sm"
-                                                    href="{{ route('sesiones.edit', $sesion) }}">
-                                                    <i class="fas fa-pencil-alt">
-                                                    </i>
-                                                </a>
-                                                <form method="POST" action="{{ route('sesiones.destroy', $sesion->id) }}"
-                                                    class="d-inline form-eliminar">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button class="btn btn-danger btn-sm"> <i class="fas fa-trash">
-                                                        </i></button>
-                                                </form>
+                                                @if ($prestacion->soyCreador)
+                                                    <a class="btn btn-info btn-sm"
+                                                        href="{{ route('sesiones.edit', $sesion) }}">
+                                                        <i class="fas fa-pencil-alt">
+                                                        </i>
+                                                    </a>
+                                                    <form method="POST"
+                                                        action="{{ route('sesiones.destroy', $sesion->id) }}"
+                                                        class="d-inline form-eliminar">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button class="btn btn-danger btn-sm"> <i class="fas fa-trash">
+                                                            </i></button>
+                                                    </form>
+                                                @endif
                                             </td>
                                         </tr>
                                         @php($i++)
@@ -139,7 +143,8 @@
                                 {{ $sesiones->links() }}
                             </div>
                         </div>
-                        <div class="tab-pane" id="informes">
+                        <div class="
+                                tab-pane" id="informes">
                                 @if ($prestacion->soyCreador)
                                     <a href="{{ route('informes.create', $prestacion->id) }}" class="btn btn-info"><i
                                             class="far fa-file-alt"></i> Nuevo
