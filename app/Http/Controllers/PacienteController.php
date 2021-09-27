@@ -8,16 +8,31 @@ use App\Models\{Persona,Paciente,Genero,Prestrado,Prestador};
 use App\Http\Requests\StorePaciente;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 
 class PacienteController extends Controller
 {
-    public function index(){
-        $pacientes = Paciente::join('personas', 'pacientes.persona_id','personas.id')
-        ->where('esta_activo',true)
-        ->orderBy('apellido','desc')
-        ->select('personas.*','pacientes.*')
+    public function index(){        
+        $prestaciones = Paciente::join('personas as per', 'pacientes.persona_id', 'per.id')
+        ->join('tratamientos as t', 't.paciente_id', 'pacientes.id')
+        ->join('prestaciones as pre', 't.id', 'pre.tratamiento_id')
+        ->join('prestadores', 'prestadores.id', 'pre.prestador_id')
+        ->where('per.esta_activo', true)
+        ->where('pre.prestador_id', Session::get('prestador'))
+        ->orderBy('apellido', 'desc')
+        ->select('per.apellido', 'per.nombre', 'per.documento', 'per.fecha_nacimiento', 'pacientes.id','pacientes.tiene_cud')   
         ->get();
-       
+
+        $aux_pacientes = Paciente::join('personas as per', 'pacientes.persona_id', 'per.id')
+        ->where('per.esta_activo', true)
+        ->where('pacientes.prestador_id', Session::get('prestador'))
+        ->orderBy('apellido', 'desc')
+        ->select('per.apellido', 'per.nombre', 'per.documento', 'per.fecha_nacimiento', 'pacientes.id','pacientes.tiene_cud')
+        ->get();
+
+        
+        $pacientes = $prestaciones->merge($aux_pacientes);   
+        
         return view('pacientes.index',compact('pacientes'));
     }
 
