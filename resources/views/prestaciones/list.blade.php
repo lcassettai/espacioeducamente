@@ -15,7 +15,7 @@
             <div class="col-md-3">
                 <div class="card card-widget widget-user">
                     <!-- Add the bg color to the header using any of the bg-* classes -->
-                    <div class="widget-user-header bg-info">
+                    <div class="widget-user-header {{(Session::get('prestador') == $p->prestador_id) ? 'bg-info' : 'bg-secondary'}}">
                         <h3 class="widget-user-username">{{ $p->prestador->persona->apellido }}</h3>
                         <h5 class="widget-user-desc">{{ $p->servicio->servicio }}</h5>
                     </div>

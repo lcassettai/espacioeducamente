@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\{Prestacion,Persona,Tratamiento};
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 
 class Prestador extends Model
 {
@@ -35,7 +36,7 @@ class Prestador extends Model
             return false;
         }
 
-        $prestador_logueado = Auth::user()->persona->prestadores[0]->id;
+        $prestador_logueado =  Session::get('prestador');
 
         if($prestadorId == $prestador_logueado){
             return true;

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Validation\ValidationException;
 
 class LoginController extends Controller
@@ -23,6 +24,11 @@ class LoginController extends Controller
         $remember = request()->filled('remember');
 
         if (Auth::attempt($credenciales, $remember)) {
+            if (!empty(Auth::user()->persona->prestadores[0])) {
+                Session::put('prestador', Auth::user()->persona->prestadores[0]->id);  
+            }
+                      
+            
             request()->session()->regenerate();
             return redirect('/');
         }
@@ -36,6 +42,8 @@ class LoginController extends Controller
         $request->session()->invalidate();
 
         $request->session()->regenerateToken();
+
+        Session::forget('prestador');
 
         return redirect('/');
     }
