@@ -169,10 +169,10 @@
                                                     <td>{{ date('d/m/Y', strtotime($informe->fecha)) }}</td>
                                                     <td>{{ $informe->titulo }}</td>
                                                     <td class="project-actions text-right">
-                                                        <a class="btn btn-primary btn-sm" href="">
-                                                            <i class="fas fa-eye">
-                                                            </i>
+                                                        <a class="btn btn-primary btn-sm" href="{{ $informe->url_archivo }}">
+                                                            <i class="fas fa-file-download"></i>                                                           </i>
                                                         </a>
+                                                    @if ($prestacion->soyCreador)
                                                         <a class="btn btn-info btn-sm"
                                                             href="{{ route('informes.edit', $informe) }}">
                                                             <i class="fas fa-pencil-alt">
@@ -187,6 +187,7 @@
                                                                     class="fas fa-trash">
                                                                 </i></button>
                                                         </form>
+                                                    @endif
                                                     </td>
                                                 </tr>
                                                 @php($i++)
